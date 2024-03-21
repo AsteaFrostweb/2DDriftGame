@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 25655705}
   - component: {fileID: 25655704}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: MiniMapBorder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -153,11 +153,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1132214955}
+  m_Father: {fileID: 1505158332}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 496, y: -216}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 270, y: 170}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &25655704
@@ -1302,11 +1302,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 337512448}
-  m_Father: {fileID: 1132214955}
+  m_Father: {fileID: 1505158332}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 322.8, y: -96.19998}
+  m_AnchoredPosition: {x: -173.20007, y: 119.80002}
   m_SizeDelta: {x: 12, y: 12}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1023816488
@@ -1323,7 +1323,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1945228419}
   minimapCamera: {fileID: 140602997}
-  minimap_size: {x: 250, y: 150}
+  minimap_size: {x: 245, y: 145}
   offset: {x: 845, y: 4, z: 0}
   scale: {x: 0, y: 0, z: 0}
 --- !u!114 &1023816489
@@ -1364,45 +1364,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1023816486}
   m_CullTransparentMesh: 1
---- !u!1 &1132214954
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1132214955}
-  m_Layer: 5
-  m_Name: MiniMap
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1132214955
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1132214954}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1230231261}
-  - {fileID: 25655703}
-  - {fileID: 2027912545}
-  - {fileID: 1023816487}
-  m_Father: {fileID: 1505158332}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1189188586
 GameObject:
   m_ObjectHideFlags: 0
@@ -1543,7 +1504,7 @@ GameObject:
   - component: {fileID: 1230231263}
   - component: {fileID: 1230231262}
   m_Layer: 5
-  m_Name: Image
+  m_Name: MiniMapBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1561,11 +1522,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1132214955}
+  m_Father: {fileID: 1505158332}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 496, y: -216}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 260, y: 160}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1230231262
@@ -1836,7 +1797,10 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1132214955}
+  - {fileID: 25655703}
+  - {fileID: 1230231261}
+  - {fileID: 2027912545}
+  - {fileID: 1023816487}
   - {fileID: 258513373}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1990,7 +1954,7 @@ GameObject:
   - component: {fileID: 1686696077}
   - component: {fileID: 1686696078}
   m_Layer: 0
-  m_Name: Square
+  m_Name: CarSprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2054,7 +2018,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 54d1a05c7ba9a554f8cd7aa398a2852d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2500b30b1ab82c74388707580c1c6492, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2521,7 +2485,7 @@ GameObject:
   - component: {fileID: 1945228420}
   - component: {fileID: 1945228421}
   - component: {fileID: 1945228424}
-  - component: {fileID: 1945228422}
+  - component: {fileID: 1945228425}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2543,7 +2507,7 @@ Rigidbody2D:
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0.25
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0.2
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -2607,8 +2571,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a8458b396f2ed94f89cef25a461e4ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!61 &1945228422
-BoxCollider2D:
+--- !u!114 &1945228423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1945228416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f69054055d6dbe45af6c070a41719ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  acceleration: 750
+  max_speed: 35
+  min_turn_angle: 0.1
+  max_turn_angle: 4500
+  turn_acceleration: 12500
+  turn_speed_reset_rate: 1.75
+  turn_speed_invert_rate: 2
+  min_turn_speed: 0.1
+  drift_threshold: 15
+  min_turn_speed_speedThreshold: 1
+  max_turn_speed_speedThreshold: 7.5
+  defualt_tyre_grip: 2.5
+  drift_grip_reduction: 0.5
+  brake_grip_reduction: 0.5
+--- !u!114 &1945228424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1945228416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24cca28d45a28b144b6257f9eeea6d35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  in_combo: 0
+  current_total_drift_score: 0
+  current_combo_multiplier: 0
+  current_drift_score: 0
+  drift_score_multiplier: 124
+  crash_no_drift_time: 2
+  drift_multiplier_time: 2
+--- !u!70 &1945228425
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -2639,64 +2648,9 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.08092749, y: -0.50260234}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 2.252247, y: 5.191194}
-  m_EdgeRadius: 0
---- !u!114 &1945228423
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1945228416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f69054055d6dbe45af6c070a41719ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  acceleration: 750
-  max_speed: 35
-  min_turn_angle: 0.1
-  max_turn_angle: 4000
-  turn_acceleration: 15000
-  turn_speed_reset_rate: 1.75
-  turn_speed_invert_rate: 2
-  min_turn_speed: 0.1
-  drift_threshold: 15
-  min_turn_speed_speedThreshold: 1
-  max_turn_speed_speedThreshold: 7.5
-  defualt_tyre_grip: 2.5
-  drift_grip_reduction: 0.5
-  brake_grip_reduction: 0.5
---- !u!114 &1945228424
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1945228416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 24cca28d45a28b144b6257f9eeea6d35, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  in_combo: 0
-  current_total_drift_score: 0
-  current_combo_multiplier: 0
-  current_drift_score: 0
-  drift_score_multiplier: 124
-  crash_no_drift_time: 2
-  drift_multiplier_time: 2
+  m_Offset: {x: 0.0031747974, y: -0.5620003}
+  m_Size: {x: 2.7681527, y: 7.147167}
+  m_Direction: 0
 --- !u!1 &1973164589
 GameObject:
   m_ObjectHideFlags: 0
@@ -2813,11 +2767,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1132214955}
+  m_Father: {fileID: 1505158332}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 491, y: -211}
+  m_AnchoredPosition: {x: -5, y: 5}
   m_SizeDelta: {x: 250, y: 150}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &2027912546

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class CarController : MonoBehaviour
 {
@@ -10,25 +11,10 @@ public class CarController : MonoBehaviour
     CarInfo car_info;
     
     public float current_speed = 0f;
-    public float current_forward_speed = 0f;
- 
-
-
-   
-    
-
-    
+    public float current_forward_speed = 0f;    
     public float turn_angle = 0f;
-   
-  
-    
-    
-
-    public float current_drift_angle = 0f;   
-
-    
-  
-
+    public float current_drift_angle = 0f;
+    public float current_step = 0f;
 
     public bool is_drifting;
     public bool is_breaking;
@@ -197,6 +183,7 @@ public class CarController : MonoBehaviour
     public bool IsDrifting() 
     {
         float angle = Vector3.Angle(rb.velocity, transform.up);
+
         if ((180 - angle) < angle) 
         {
             angle = 180 - angle;
@@ -269,8 +256,12 @@ public class CarController : MonoBehaviour
     {
         Vector2 forward_vector = transform.up;
 
-        float angle = Vector2.Angle(rb.velocity, forward_vector);// gets the angle between our forward movement and our current velocity
+        float front_angle = Vector2.Angle(rb.velocity, forward_vector);// gets the angle between our forward movement and our current velocity
+        float back_angle = Vector2.Angle(rb.velocity, -forward_vector);
+        //Debug.Log("Front Angle: " + front_angle);
+        //Debug.Log("Back Angle: " + back_angle);
 
+        float angle = (front_angle <= back_angle) ? front_angle : back_angle;
 
         float step = angle * GetTyreGrip() * time;
 
@@ -283,6 +274,9 @@ public class CarController : MonoBehaviour
         {
             rb.velocity = Vector2.MoveTowards(rb.velocity, -forward_vector * rb.velocity.magnitude, step);
         }
+        
+
+        
     }
 
     private void FixedUpdate()

@@ -24,6 +24,8 @@ public class UIFollowCar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        offset.x = (Screen.width - minimap_size.x);
+
         if (target != null && minimapCamera != null)
         {
             
