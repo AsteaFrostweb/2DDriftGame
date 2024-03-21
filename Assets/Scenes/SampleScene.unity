@@ -251,7 +251,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 125
+  orthographic size: 150
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -344,6 +344,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a40b88802ebb7b44aaeee9f227fffc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  score_text_colour: {r: 1, g: 1, b: 1, a: 1}
+  failed_score_color: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &337512447
 GameObject:
   m_ObjectHideFlags: 0
@@ -877,7 +879,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 20
+  orthographic size: 25
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -902,7 +904,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -114.2, y: 38.4, z: -10}
+  m_LocalPosition: {x: -133.5, y: 48.5, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -980,7 +982,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 1ecb022099e23f6408e87d0606e7fec5, type: 3}
-  m_Color: {r: 0.75917673, g: 1, b: 0.4481132, a: 1}
+  m_Color: {r: 0.801895, g: 0.9245283, b: 0.64106447, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -2018,7 +2020,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 21300000, guid: 2500b30b1ab82c74388707580c1c6492, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a39fa3956d4254a468a34cca3f72c189, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2529,7 +2531,7 @@ Transform:
   m_GameObject: {fileID: 1945228416}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.1564345, w: 0.98768836}
-  m_LocalPosition: {x: -114.2, y: 38.4, z: 0}
+  m_LocalPosition: {x: -133.5, y: 48.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2556,9 +2558,11 @@ MonoBehaviour:
   current_forward_speed: 0
   turn_angle: 0
   current_drift_angle: 0
+  current_step: 0
   is_drifting: 0
   is_breaking: 0
   is_moving_backwards: 0
+  is_touching_edge: 0
 --- !u!114 &1945228421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2595,7 +2599,7 @@ MonoBehaviour:
   min_turn_speed_speedThreshold: 1
   max_turn_speed_speedThreshold: 7.5
   defualt_tyre_grip: 2.5
-  drift_grip_reduction: 0.5
+  drift_grip_reduction: 0.75
   brake_grip_reduction: 0.5
 --- !u!114 &1945228424
 MonoBehaviour:
@@ -2609,11 +2613,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24cca28d45a28b144b6257f9eeea6d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crashed: 0
   in_combo: 0
   current_total_drift_score: 0
   current_combo_multiplier: 0
   current_drift_score: 0
-  drift_score_multiplier: 124
+  drift_score_multiplier: 185
   crash_no_drift_time: 2
   drift_multiplier_time: 2
 --- !u!70 &1945228425
@@ -2730,7 +2735,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 15, y: 15, z: 1}
+  m_LocalScale: {x: 17.5, y: 17.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1862307760}
@@ -2897,8 +2902,8 @@ SpriteRenderer:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 519420032}
   - {fileID: 140602998}
+  - {fileID: 519420032}
   - {fileID: 1945228419}
   - {fileID: 1020010796}
   - {fileID: 1505158332}

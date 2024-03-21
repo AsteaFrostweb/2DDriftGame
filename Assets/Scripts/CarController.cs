@@ -19,6 +19,7 @@ public class CarController : MonoBehaviour
     public bool is_drifting;
     public bool is_breaking;
     public bool is_moving_backwards;
+    public bool is_touching_edge;
 
     private Rigidbody2D rb;
 
@@ -27,6 +28,12 @@ public class CarController : MonoBehaviour
     float verticalInput = 0f;
     void Start()
     {
+        is_drifting = false;
+        is_breaking = false;
+        is_moving_backwards = false;
+        is_touching_edge = false;
+
+
         rb = GetComponent<Rigidbody2D>();
         car_info = gameObject.GetComponent<CarInfo>();
     }
@@ -189,7 +196,7 @@ public class CarController : MonoBehaviour
             angle = 180 - angle;
         }
 
-        if (angle >= car_info.drift_threshold)
+        if ((angle >= car_info.drift_threshold) && !is_touching_edge)
         {
             return true;
         }
@@ -224,7 +231,7 @@ public class CarController : MonoBehaviour
             turn_angle += turn_delta;
         }
 
-        if (Mathf.Abs(turn_angle) <car_info.min_turn_angle)
+        if (Mathf.Abs(turn_angle) < car_info.min_turn_angle + turn_delta)
         {
             turn_angle = 0f;
         }
@@ -297,5 +304,15 @@ public class CarController : MonoBehaviour
 
         rotation = 0f;       
         verticalInput = 0f;
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        is_touching_edge = true;
+    }
+
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        is_touching_edge = false;
     }
 }
