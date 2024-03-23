@@ -11,7 +11,8 @@ public class GameState : MonoBehaviour
     public enum Cars { RED, GREEN, BLUE, WHITE}
     public enum State {MENU, IN_GAME, POST_GAME}
 
-
+    public PostGameData post_game_data;
+    public Track.Maps current_map;
     public State game_state = State.MENU;
     public Cars current_car;
     private int race_player_count = 1;

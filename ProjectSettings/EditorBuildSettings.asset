@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Menu.unity
+    path: Assets/Scenes/MainMenu.unity
     guid: c581a8326ace3fa47a279ecc42f34027
   - enabled: 1
     path: Assets/Scenes/Carteena Valley.unity
@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Marks Map.unity
     guid: 244d94dc9da5f8641937205fa67c016f
+  - enabled: 1
+    path: Assets/Scenes/PostGame.unity
+    guid: 7a057b99c729ff44c98bb57d18b3e4c4
   m_configObjects: {}

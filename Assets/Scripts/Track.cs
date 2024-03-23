@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class Track : MonoBehaviour
 {
-
+    public enum Maps { NONE, CARTEENA, SANDY, MARKS }
     public struct Lap 
     {
         public LapState state;

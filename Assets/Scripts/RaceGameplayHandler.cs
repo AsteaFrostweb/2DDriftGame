@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Net;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using static Track;
 
 
@@ -20,9 +21,12 @@ public class RaceGameplayHandler : MonoBehaviour
         public bool on_start_finish;
         public List<Lap> laps;
         public Lap current_lap;
+        
+
 
         public PlayerRace(int _id, GameObject _player_obj, bool on_sf, List<Lap> _laps, Lap _current_lap)
         {
+
             car_controller = null;
             id = _id;
             player_obj = _player_obj;
@@ -31,23 +35,26 @@ public class RaceGameplayHandler : MonoBehaviour
             on_start_finish = on_sf;
             laps = _laps;
             current_lap = _current_lap;
+           
         }
     }
     public struct Racetracker
     {
         public Track track;
         public PlayerRace[] players;
+        public bool[] finished_players;
 
     }
     public struct PlayerRaceData
     {
+        public DriftScoreHandler.DriftData drift_data;
         public TimeSpan fastest_lap;
         public TimeSpan total_time;
         public int lap_count;
     }
     public struct RaceData
     {
-        PlayerRaceData[] player_race_data;
+        public PlayerRaceData[] player_race_data;
 
         public RaceData(PlayerRaceData[] _player_race_data) 
         {
@@ -61,8 +68,8 @@ public class RaceGameplayHandler : MonoBehaviour
     public TimeSpan race_time;
     public bool race_started;
     public int player_count;
-    
 
+    private DriftScoreHandler[] score_handlers;
     private RaceData race_data;
     private PlayerRaceData[] player_race_data;    
     private DateTime round_start_time;
@@ -75,6 +82,7 @@ public class RaceGameplayHandler : MonoBehaviour
     private bool FindPlayers()
     {
         bool ans = true;
+        
         for (int i = 1; i <= race.players.Length; i++)
         {
 
@@ -83,7 +91,9 @@ public class RaceGameplayHandler : MonoBehaviour
             {
                 UnityEngine.Debug.Log("player" + i + " found.");
                 race.players[i - 1] = new PlayerRace(i, player, true, null, new Lap());
+                score_handlers[i - 1] = race.players[i - 1].player_obj.GetComponent<DriftScoreHandler>();
                 race.players[i-1].car_controller = player.GetComponent<CarController>();
+                
             }
             else { UnityEngine.Debug.Log("Couldn't find player: " + i); ans = false; }
         }
@@ -94,28 +104,35 @@ public class RaceGameplayHandler : MonoBehaviour
     void Start()
     {
         race_started = false;
+
+
+        
+        game_state = GameObject.FindAnyObjectByType<GameState>();
         race.track = GameObject.FindAnyObjectByType<Track>();
-        game_state = GameObject.FindAnyObjectByType<GameState>();       
-        round_start_time = DateTime.Now;
-        race_time = round_start_time.Subtract(DateTime.Now);
 
         player_count = game_state.GetRacePlayerCount();
+
+        score_handlers = new DriftScoreHandler[player_count];
         race.players = new PlayerRace[player_count];
+        race.finished_players = new bool[player_count];
         player_race_data = new PlayerRaceData[player_count];
 
-        players_found = FindPlayers();
+        round_start_time = DateTime.Now;
+        race_time = round_start_time.Subtract(DateTime.Now);           
+       
 
-
+        players_found = FindPlayers(); //fasle if it fails to find one of the players game objects
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!players_found) 
+        if (!players_found)
         {
             players_found = FindPlayers();
             return;
         }
+        
 
         race_time = DateTime.Now.Subtract(round_start_time); //Caultulate race time
         //Handle the coundown timer
@@ -250,6 +267,34 @@ public class RaceGameplayHandler : MonoBehaviour
         PlayerRaceData data = player_race_data[id];
         player_race_data[id].total_time = DateTime.Now.Subtract(race.players[id].laps[0].start_time);
         player_race_data[id].lap_count = race.players[id].lap_count;
+        player_race_data[id].drift_data = score_handlers[id].GetDriftData();
+
+        race.finished_players[id] = true;
+
+        if (id == 0) 
+        {
+            for (int i = 1; i < race.players.Length; i++)
+            {
+                if (!race.finished_players[i]) 
+                {
+                    FinishRace(i); //finishing every non finished player
+                }
+            }
+
+            //Finishing race as player 1 has finished
+            RaceData race_data = new RaceData();
+            race_data.player_race_data = player_race_data;
+
+            PostGameData pg_data = new PostGameData();
+            pg_data.map = game_state.current_map;
+            pg_data.race_data = race_data;    
+            
+
+            game_state.post_game_data = pg_data;
+            SceneManager.LoadScene("PostGame");
+        }
+
+        
     }
 
 

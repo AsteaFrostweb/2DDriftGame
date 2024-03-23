@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static Track;
 
 public class MenuUIHandler : MonoBehaviour
 {
     public enum SubMenus {NONE, SETTINGS, MAP_SELECT, CAR_SELECT, CREDITS, HIGHSCORES};
-    public enum Maps {NONE, CARTEENA, SANDY, MARKS}
+   
 
 
     private GameState game_state;
@@ -90,6 +91,7 @@ public class MenuUIHandler : MonoBehaviour
     public void OnCarteenaValley()
     {
         current_map = Maps.CARTEENA;
+        game_state.current_map = Maps.CARTEENA;
         CloseSubMenus();
         car_select_panel.SetActive(true);
         
@@ -97,6 +99,7 @@ public class MenuUIHandler : MonoBehaviour
     public void OnSandySlalom()
     {
         current_map = Maps.SANDY;
+        game_state.current_map = Maps.SANDY;
         CloseSubMenus();
         car_select_panel.SetActive(true);
 
@@ -104,6 +107,7 @@ public class MenuUIHandler : MonoBehaviour
     public void OnMarksMap()
     {
         current_map = Maps.MARKS;
+        game_state.current_map = Maps.MARKS;
         CloseSubMenus();
         car_select_panel.SetActive(true);
 
