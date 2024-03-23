@@ -7,6 +7,7 @@ public class DriftUIHandler : MonoBehaviour
 {
     DriftScoreHandler drift_handler;
     TextMeshProUGUI drift_score_tmp;
+    TextMeshProUGUI total_drift_score_tmp;
 
     private string previous_text;
 
@@ -18,12 +19,31 @@ public class DriftUIHandler : MonoBehaviour
     void Start()
     {
         drift_score_tmp = GameObject.Find("DriftScoreText").GetComponent<TextMeshProUGUI>();
-        drift_handler = GameObject.Find("Player").GetComponent<DriftScoreHandler>();
+        total_drift_score_tmp = GameObject.Find("ScoreText_TMP").GetComponent<TextMeshProUGUI>();
+        
+
+        CarController controller = GameObject.FindAnyObjectByType<CarController>();
+        if (controller != null)
+        {
+            drift_handler = controller.gameObject.GetComponent<DriftScoreHandler>();
+        }
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (drift_handler == null || drift_score_tmp == null) 
+        {
+            drift_score_tmp = GameObject.Find("DriftScoreText").GetComponent<TextMeshProUGUI>();
+            CarController controller = GameObject.FindAnyObjectByType<CarController>();
+            if (controller != null)
+            {
+                drift_handler = controller.gameObject.GetComponent<DriftScoreHandler>();
+            }
+            return;
+        }
+
         if (drift_handler.in_combo)
         {
             drift_score_tmp.gameObject.SetActive(true);
@@ -41,6 +61,14 @@ public class DriftUIHandler : MonoBehaviour
         {
             drift_score_tmp.gameObject.SetActive(false);
         }
+
+        UpdateDriftScore();
+
+    }
+
+    void UpdateDriftScore() 
+    {
+        total_drift_score_tmp.text = "Total Score:   " + Mathf.Round(drift_handler.current_total_drift_score);
     }
 
 }

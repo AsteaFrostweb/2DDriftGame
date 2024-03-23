@@ -40,6 +40,11 @@ public class CarController : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape)) 
+        {
+            Application.Quit();
+        }
+
         //assigning values of input variables
         GetInputs();
 

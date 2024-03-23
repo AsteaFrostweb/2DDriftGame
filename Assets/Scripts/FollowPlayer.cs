@@ -5,28 +5,42 @@ using UnityEngine;
 public class FollowPlayer : MonoBehaviour
 {
     private Transform player_trans;
+    [SerializeField]
     private Vector3 origonal_offset;
     public bool offset = true;
+
+    private void Awake()
+    {
+        CarController controller = GetComponent<CarController>();
+        if (controller != null) 
+        {
+            player_trans = controller.transform;
+        }
+       
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        player_trans = GameObject.Find("Player").transform;
-        if (offset)
-        {
-            origonal_offset = player_trans.position - transform.position;
-        }
-        else 
-        {
-            origonal_offset = Vector3.zero;
-        }
+        
         
     }
+
+
 
     // Update is called once per frame
     void Update()
     {
-        transform.position = player_trans.position - origonal_offset;   
+        if (player_trans == null)
+        {
+            CarController c = GameObject.FindAnyObjectByType<CarController>();
+            if (c != null) player_trans = c.transform;           
+        }
+        else 
+        {
+            transform.position = player_trans.position + origonal_offset;
+        }
+        
     }
 
   

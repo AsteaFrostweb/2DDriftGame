@@ -6,6 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
+    path: Assets/Scenes/Menu.unity
+    guid: c581a8326ace3fa47a279ecc42f34027
+  - enabled: 1
+    path: Assets/Scenes/Carteena Valley.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Sandy Slalom.unity
+    guid: f18d605e64f134e44a6e715d2262e859
+  - enabled: 1
+    path: Assets/Scenes/Marks Map.unity
+    guid: 244d94dc9da5f8641937205fa67c016f
   m_configObjects: {}

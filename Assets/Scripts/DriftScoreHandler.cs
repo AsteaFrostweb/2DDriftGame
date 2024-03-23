@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,9 +8,9 @@ using UnityEngineInternal;
 
 public struct Drift 
 {    
-    public float score;
+    public int score;
 
-    public Drift(float _score) 
+    public Drift(int _score) 
     {        
         this.score = _score;
     }
@@ -31,9 +32,9 @@ public struct DriftCombo
         multiplier = 1;
         drifts = new List<Drift>();
     }
-    public float TotalScore() 
+    public int TotalScore() 
     {
-        float f = 0f;
+        int f = 0;
         foreach (Drift drift in drifts) 
         {
             
@@ -49,12 +50,20 @@ public struct DriftCombo
 
 public class DriftScoreHandler : MonoBehaviour
 {
+    public struct DriftData 
+    {
+        public int total_score;
+        public int best_combo_score;
+        public TimeSpan longest_combo;
+        public TimeSpan total_combo_time;
+    }
+
     CarController player_car;
 
     [Header("Outputs")]
     public bool crashed = false;
     public bool in_combo = false;
-    public float current_total_drift_score = 0f;
+    public int current_total_drift_score = 0;
     public float current_combo_multiplier = 0f;
     public float current_drift_score = 0f;
 
@@ -111,7 +120,7 @@ public class DriftScoreHandler : MonoBehaviour
                     in_combo = true;
                 }
 
-                current_drift = new Drift(0f);
+                current_drift = new Drift(0);
                 was_drifting = true;
                 return;
             }
@@ -121,7 +130,7 @@ public class DriftScoreHandler : MonoBehaviour
             current_drift_score = current_drift.score;
 
             float frame_score = drift_score_multiplier * current_combo.multiplier * (player_car.current_drift_angle / 10) * Time.deltaTime;           
-            current_drift.score += frame_score;
+            current_drift.score += (int)frame_score;
 
         }
         else  //IF PLAYER ISNT DRIFTING
@@ -133,7 +142,7 @@ public class DriftScoreHandler : MonoBehaviour
                 previous_drift_end = DateTime.Now;
 
                 current_combo.AddDrift(current_drift);
-                current_drift = new Drift(0f);              
+                current_drift = new Drift(0);              
                 
                 was_drifting = false;
             }
@@ -153,7 +162,7 @@ public class DriftScoreHandler : MonoBehaviour
                 {
                     current_combo.end_time = DateTime.Now;
                     //Debug.Log(current_combo.TotalScore());
-                    current_total_drift_score += current_combo.TotalScore();
+                    current_total_drift_score += (int)current_combo.TotalScore();
                     all_combos.Add(current_combo);
                     in_combo = false;
                 }
@@ -161,5 +170,64 @@ public class DriftScoreHandler : MonoBehaviour
 
             //if the player isnt drifting
         }
+
+        
+
+    }
+
+    TimeSpan GetTotalComboTime() 
+    {
+        TimeSpan t = new TimeSpan();
+        foreach (DriftCombo combo in all_combos) 
+        {
+            TimeSpan duration = combo.end_time.Subtract(combo.start_time);
+            t.Add(duration);
+        }
+        return t;
+    }
+    TimeSpan GetLongestComboTime()
+    {
+        TimeSpan longest = new TimeSpan();
+        foreach (DriftCombo combo in all_combos)
+        {
+            TimeSpan duration = combo.end_time.Subtract(combo.start_time);
+            if (duration > longest) 
+            {
+                longest = duration;
+            }
+        }
+        return longest;
+    }
+    int GetTotalComboScore() 
+    {
+        int total = 0;
+        foreach (DriftCombo combo in all_combos)
+        {
+            total += combo.TotalScore();
+        }
+        return total;
+    }
+    int GetBestComboScore()
+    {
+        int best = 0;
+        foreach (DriftCombo combo in all_combos)
+        {
+            int score = combo.TotalScore();
+            if (score > best) 
+            {
+                best = score;
+            }
+        }
+        return best;
+    }
+
+    public DriftData GetDriftData() 
+    {
+        DriftData data = new DriftData();
+        data.total_combo_time = GetTotalComboTime();
+        data.best_combo_score = GetBestComboScore();
+        data.longest_combo = GetLongestComboTime();
+        data.total_score = GetTotalComboScore();
+        return data;
     }
 }
