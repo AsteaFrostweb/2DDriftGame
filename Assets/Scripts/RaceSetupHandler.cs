@@ -38,7 +38,7 @@ public class RaceSetupHandler : MonoBehaviour
         {            
             try
             {
-                SpawnCar();
+               SpawnCar(1);
                player_spawned = true;
             }
             catch
@@ -49,21 +49,21 @@ public class RaceSetupHandler : MonoBehaviour
     }
 
 
-    void SpawnCar() 
+    void SpawnCar(int i) 
     {
         switch (game_state.current_car) 
         {
             case GameState.Cars.GREEN:
-                GameObject.Instantiate(green_car_prefab, Spawn_position.position, Spawn_position.rotation);
+                GameObject.Instantiate(green_car_prefab, Spawn_position.position, Spawn_position.rotation).name = "Player" + i;
                 break;
             case GameState.Cars.RED:
-                GameObject.Instantiate(red_car_prefab, Spawn_position.position, Spawn_position.rotation);
+                GameObject.Instantiate(red_car_prefab, Spawn_position.position, Spawn_position.rotation).name = "Player" + i;
                 break;
             case GameState.Cars.BLUE:
-                GameObject.Instantiate(blue_car_prefab, Spawn_position.position, Spawn_position.rotation);
+                GameObject.Instantiate(blue_car_prefab, Spawn_position.position, Spawn_position.rotation).name = "Player" + i;
                 break;
             case GameState.Cars.WHITE:
-                GameObject.Instantiate(white_car_prefab, Spawn_position.position, Spawn_position.rotation);
+                GameObject.Instantiate(white_car_prefab, Spawn_position.position, Spawn_position.rotation).name = "Player" + i;
                 break;
         }
     }

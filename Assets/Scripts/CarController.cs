@@ -16,6 +16,7 @@ public class CarController : MonoBehaviour
     public float current_drift_angle = 0f;
     public float current_step = 0f;
 
+    public bool control_locked = true;
     public bool is_drifting;
     public bool is_breaking;
     public bool is_moving_backwards;
@@ -32,6 +33,7 @@ public class CarController : MonoBehaviour
         is_breaking = false;
         is_moving_backwards = false;
         is_touching_edge = false;
+        control_locked = true;
 
 
         rb = GetComponent<Rigidbody2D>();
@@ -44,7 +46,7 @@ public class CarController : MonoBehaviour
         {
             Application.Quit();
         }
-
+        
         //assigning values of input variables
         GetInputs();
 
@@ -161,6 +163,7 @@ public class CarController : MonoBehaviour
     }
     void GetInputs() 
     {
+        if (control_locked) { return; }
         horizontalInput = Input.GetAxis("Horizontal") * Time.deltaTime;
         verticalInput += Input.GetAxis("Vertical") * Time.deltaTime;
 

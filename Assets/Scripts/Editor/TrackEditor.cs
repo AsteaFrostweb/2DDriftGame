@@ -1,28 +1,65 @@
 using UnityEngine;
 using System.Collections;
 using UnityEditor;
+using UnityEditor.Tilemaps;
 
 [CustomEditor(typeof(Track))]
 public class TrackEditor : Editor
 {
+    Track target_track;
+    GameObject[] node_objs;  
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
-        Track myTarget = (Track)target;
-      
-        myTarget.nodes = new Transform[myTarget.nodes.Length];
-        for (int i = 0; i < myTarget.nodes.Length; i++) 
-        {
-            myTarget.nodes[i] = GameObject.Find("Node" + i).transform;
-        }
+        target_track = (Track)target;
 
-        if (myTarget.track_type == Track.TrackType.ASCENDING) 
+        PopulateNodeObjects();
+
+        PopulatePathNodeOrder();
+
+        PopulateNodes();
+       
+    }
+
+    void PopulateNodeObjects() 
+    {
+        target_track.node_objects = new Transform[target_track.node_objects.Length];
+        node_objs = new GameObject[target_track.node_objects.Length];
+        for (int i = 0; i < target_track.node_objects.Length; i++)
         {
-            myTarget.path_node_order = new int[myTarget.nodes.Length];
-            for (int i = 0; i < myTarget.nodes.Length; i++) 
+            GameObject go = GameObject.Find("Node" + i);
+            if (go != null)
             {
-                myTarget.path_node_order[i] = i;
-            }          
+                target_track.node_objects[i] = go.transform;
+                node_objs[i] = go;
+            }
         }
+    }
+
+    void PopulatePathNodeOrder() 
+    {
+        if (target_track.track_type == Track.TrackType.ASCENDING)
+        {
+            target_track.path_node_order = new int[target_track.node_objects.Length];
+            for (int i = 0; i < target_track.node_objects.Length; i++)
+            {
+                target_track.path_node_order[i] = i;
+            }
+        }
+    }
+    void PopulateNodes() 
+    {
+        Track.Node[] nodes = new Track.Node[node_objs.Length]; ;
+        for (int i = 0; i < nodes.Length; i++) 
+        {
+            try {
+                NodeComponent component = node_objs[i].GetComponent<NodeComponent>();
+                nodes[i].position = component.transform.position;
+                nodes[i].radius = component.radius;
+            }
+            catch { Debug.Log("Node object doesn't have NodeComponent!"); }
+            
+        }
+        target_track.SetNodes(nodes);
     }
 }

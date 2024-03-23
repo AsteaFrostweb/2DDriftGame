@@ -1669,7 +1669,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1244144482
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3979,6 +3979,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   game_state: 1
   current_car: 0
+  max_player_count: 1
+  player_count: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
