@@ -15,6 +15,7 @@ public class GameState : MonoBehaviour
     public Track.Maps current_map;
     public State game_state = State.MENU;
     public Cars current_car;
+    public int lap_count = 0;
     private int race_player_count = 1;
 
     [Header("Inputs")]

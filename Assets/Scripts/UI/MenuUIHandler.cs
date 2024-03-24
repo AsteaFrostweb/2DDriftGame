@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using static Track;
 
 public class MenuUIHandler : MonoBehaviour
@@ -18,12 +20,17 @@ public class MenuUIHandler : MonoBehaviour
     public GameObject map_select_panel;
     public GameObject car_select_panel;
     public GameObject credits_panel;
-
+  
     private GameObject[] sub_panels;
-
+    private GameObject lap_count_slider_obj;
+    private Slider lap_count_slider;
+    private TextMeshProUGUI lap_count_value;
     // Start is called before the first frame update
     void Start()
     {
+        lap_count_slider_obj = GameObject.Find("LapCountSlider");
+        lap_count_slider = lap_count_slider_obj.GetComponent<Slider>();
+        lap_count_value = lap_count_slider_obj.transform.Find("Value").GetComponent<TextMeshProUGUI>();
         game_state = GameObject.Find("GameState").GetComponent<GameState>();
         game_state.game_state = GameState.State.MENU;
 
@@ -37,7 +44,7 @@ public class MenuUIHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        lap_count_value.text = ((int)lap_count_slider.value).ToString();
     }
 
 
@@ -139,6 +146,7 @@ public class MenuUIHandler : MonoBehaviour
     private void SelectCar(GameState.Cars car) 
     {     
         game_state.current_car = car;
+        game_state.lap_count = (int)lap_count_slider.value;
         game_state.game_state = GameState.State.IN_GAME;
 
         CloseSubMenus();        

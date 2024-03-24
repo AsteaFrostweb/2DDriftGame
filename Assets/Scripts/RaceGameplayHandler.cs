@@ -32,7 +32,7 @@ public class RaceGameplayHandler : MonoBehaviour
             id = _id;
             player_obj = _player_obj;
             was_on_start_finish = false;
-            lap_count = -1;
+            lap_count = 0;
             on_start_finish = on_sf;
             laps = _laps;
             current_lap = _current_lap;
@@ -72,15 +72,18 @@ public class RaceGameplayHandler : MonoBehaviour
     public bool race_started;
     public int player_count;
 
-    private DriftScoreHandler[] score_handlers;
+    public DriftScoreHandler[] score_handlers;
     private RaceData race_data;
     private PlayerRaceData[] player_race_data;    
-    private DateTime round_start_time;
+    public DateTime round_start_time;
     private Racetracker race;
     private GameState game_state;
     private bool players_found;
 
-
+    public Racetracker GetRace() 
+    {
+        return race;
+    }
 
     private bool FindPlayers()
     {
@@ -213,12 +216,13 @@ public class RaceGameplayHandler : MonoBehaviour
         race.players[id].was_on_start_finish = true;
 
 
-        if (race.players[id].lap_count == -1) //runs on initialization as the game fierst realizes the cars are in the start finish hitbox
+        if (race.players[id].lap_count == 0) //runs on initialization as the game fierst realizes the cars are in the start finish hitbox
         {
             race.players[id].laps = new List<Lap>();
             race.players[id].current_lap = new Lap(DateTime.Now, 0, race.track);
             player_race_data[id].fastest_lap = TimeSpan.MaxValue;
             race.players[id].lap_count++;
+
         }
      
         if (race.players[id].current_lap.current_node_order_index == race.track.path_node_order.Length - 1) //If the player has reacher the final node before raching the finish line
@@ -236,9 +240,7 @@ public class RaceGameplayHandler : MonoBehaviour
             {               
                 FinishRace(id);
                 return;
-            }
-
-            race.players[id].lap_count++;
+            }           
 
             if (race.players[id].lap_count >= race.track.loop_count && race.track.loop) //If looping is enabled and we've reaced or exceeded the loop limit
             {
@@ -246,6 +248,7 @@ public class RaceGameplayHandler : MonoBehaviour
                 return;
             }
 
+            race.players[id].lap_count++;
             race.players[id].current_lap = new Lap(DateTime.Now, 0, race.track);           
         }
         else
@@ -299,7 +302,8 @@ public class RaceGameplayHandler : MonoBehaviour
             
 
             game_state.post_game_data = pg_data;
-            SceneManager.LoadScene("PostGame");
+            EnableControlLock();
+            StartCoroutine(Finish("PostGame", 2f));
         }
 
         
@@ -323,6 +327,22 @@ public class RaceGameplayHandler : MonoBehaviour
         {
             race.players[i].car_controller.control_locked = false;
         }
+    }
+    private void EnableControlLock()
+    {
+        for (int i = 0; i < race.players.Length; i++)
+        {
+            race.players[i].car_controller.control_locked = true;
+        }
+    }
+
+    IEnumerator Finish(string scene, float time)
+    {
+        // Wait for 2 seconds
+        yield return new WaitForSeconds(time);
+
+        // Load the scene
+        SceneManager.LoadScene(scene);
     }
 
 }

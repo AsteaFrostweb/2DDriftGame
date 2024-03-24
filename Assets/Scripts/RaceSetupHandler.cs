@@ -19,11 +19,14 @@ public class RaceSetupHandler : MonoBehaviour
     Transform Spawn_position;
     public bool player_spawned;
 
+    private Track track;
+
     // Start is called before the first frame update
     void Start()
     {
         game_state = GameObject.Find("GameState").GetComponent<GameState>();
-     
+        track = GameObject.FindAnyObjectByType<Track>();
+        track.loop_count = game_state.lap_count;
     }
 
     // Update is called once per frame

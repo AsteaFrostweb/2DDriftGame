@@ -1402,7 +1402,7 @@ MonoBehaviour:
   - {fileID: 3959187666380848590, guid: dad92c21f6cd40a419c1e7bee805edc3, type: 3}
   - {fileID: 3371935775733872022, guid: 1982c2d7b6cee91458d580077a0df55f, type: 3}
   car_types: 01000000020000000000000003000000
-  car_image: {fileID: 1416189683}
+  car_image: {fileID: 1447947300}
   total_score_text: {fileID: 1139114676}
   total_time_text: {fileID: 708516885}
   best_combo_score_text: {fileID: 1015242613}
