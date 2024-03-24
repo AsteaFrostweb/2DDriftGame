@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static GameState;
 
 public struct PostGameData
 {
@@ -18,7 +20,11 @@ public class PostGameUIHandler : MonoBehaviour
     private GameState game_state;
     private PostGameData pg_data;
 
-
+    [SerializeField]
+    public GameObject[] car_prefabs;
+    [SerializeField]
+    public Cars[] car_types;
+    
 
 
     [SerializeField]
@@ -38,6 +44,12 @@ public class PostGameUIHandler : MonoBehaviour
     [SerializeField]
     public TextMeshProUGUI longest_combo_text;
     private string longest_combo_text_base = "";
+    [SerializeField]
+    public TextMeshProUGUI total_combo_time_text;
+    private string total_combo_time_text_base = "";
+
+    private bool menu_populated = false;
+  
 
     // Start is called before the first frame update
     void Start()
@@ -50,11 +62,20 @@ public class PostGameUIHandler : MonoBehaviour
         best_combo_text_base = best_combo_score_text.text;
         fastest_lap_text_base = fastest_lap_text.text;
         longest_combo_text_base = longest_combo_text.text;
+        total_combo_time_text_base = total_combo_time_text.text;
+
+        menu_populated = false;
+        game_state.game_state = GameState.State.POST_GAME;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!menu_populated) 
+        {
+            UpdateTextBoxes();
+            menu_populated=true;
+        }
         
     }
 
@@ -64,15 +85,38 @@ public class PostGameUIHandler : MonoBehaviour
         DriftScoreHandler.DriftData dr_data = pg_data.race_data.player_race_data[0].drift_data;
 
         total_score_text.text = total_score_text_base + dr_data.total_score;
-        total_time_text.text = total_time_text_base + pr_data.total_time;
+        total_time_text.text = total_time_text_base + pr_data.total_time.ToString(@"hh\:mm\:ss");
         best_combo_score_text.text = best_combo_text_base + dr_data.best_combo_score;
-        fastest_lap_text.text = fastest_lap_text_base + pr_data.fastest_lap.ToString();
-        longest_combo_text.text = longest_combo_text_base + dr_data.longest_combo.ToString();
+        fastest_lap_text.text = fastest_lap_text_base + pr_data.fastest_lap.ToString(@"hh\:mm\:ss");
+        longest_combo_text.text = longest_combo_text_base + dr_data.longest_combo.ToString(@"hh\:mm\:ss");
+        total_combo_time_text.text = total_combo_time_text_base + dr_data.total_combo_time.ToString(@"hh\:mm\:ss");
 
+        SetCarImageByType(game_state.current_car);
     }
 
     public void OnContinue() 
     {
         SceneManager.LoadScene("MainMenu");
+    }
+
+    void SetCarImageByType(Cars type) 
+    {
+        
+        for (int i = 0; i < car_types.Length; i++) 
+        {
+            if (car_types[i] == type) 
+            {
+               
+                SpriteRenderer img = car_prefabs[i].transform.Find("CarSpriteBackround").GetComponentInChildren<SpriteRenderer>();
+                if (img == null) 
+                {
+                    Debug.Log("couldnt find SpriteRenderer in car component");
+                }
+                else
+                {
+                    car_image.sprite = img.sprite; //sets the UI car image tot the ssame sprite as the casr image
+                }
+            }
+        }
     }
 }

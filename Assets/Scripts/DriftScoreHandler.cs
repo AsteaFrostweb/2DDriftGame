@@ -160,11 +160,7 @@ public class DriftScoreHandler : MonoBehaviour
 
                 if (DateTime.Now.Subtract(previous_drift_end).Seconds >= drift_multiplier_time)
                 {
-                    current_combo.end_time = DateTime.Now;
-                    //Debug.Log(current_combo.TotalScore());
-                    current_total_drift_score += (int)current_combo.TotalScore();
-                    all_combos.Add(current_combo);
-                    in_combo = false;
+                    EndComboSuccess();
                 }
             }
 
@@ -175,13 +171,23 @@ public class DriftScoreHandler : MonoBehaviour
 
     }
 
+    public void EndComboSuccess() 
+    {
+        current_combo.end_time = DateTime.Now;
+        //Debug.Log(current_combo.TotalScore());
+        current_total_drift_score += (int)current_combo.TotalScore();
+        all_combos.Add(current_combo);
+        in_combo = false;
+    }
+
+
     TimeSpan GetTotalComboTime() 
     {
         TimeSpan t = new TimeSpan();
         foreach (DriftCombo combo in all_combos) 
         {
             TimeSpan duration = combo.end_time.Subtract(combo.start_time);
-            t.Add(duration);
+            t += duration;
         }
         return t;
     }
@@ -203,7 +209,10 @@ public class DriftScoreHandler : MonoBehaviour
         int total = 0;
         foreach (DriftCombo combo in all_combos)
         {
-            total += combo.TotalScore();
+            if (!combo.crashed)
+            {
+                total += combo.TotalScore();
+            }
         }
         return total;
     }
@@ -213,7 +222,7 @@ public class DriftScoreHandler : MonoBehaviour
         foreach (DriftCombo combo in all_combos)
         {
             int score = combo.TotalScore();
-            if (score > best) 
+            if (score > best && !combo.crashed) 
             {
                 best = score;
             }

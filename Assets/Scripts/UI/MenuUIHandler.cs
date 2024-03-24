@@ -25,11 +25,13 @@ public class MenuUIHandler : MonoBehaviour
     void Start()
     {
         game_state = GameObject.Find("GameState").GetComponent<GameState>();
+        game_state.game_state = GameState.State.MENU;
 
         current_sub_menu = SubMenus.NONE;
         current_map = Maps.NONE;
 
         sub_panels = new GameObject[] { map_select_panel, car_select_panel, credits_panel };
+        CloseSubMenus();
     }
 
     // Update is called once per frame

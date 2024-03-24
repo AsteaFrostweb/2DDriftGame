@@ -6,6 +6,7 @@ using System.Net;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 using static Track;
 
 
@@ -48,9 +49,10 @@ public class RaceGameplayHandler : MonoBehaviour
     public struct PlayerRaceData
     {
         public DriftScoreHandler.DriftData drift_data;
-        public TimeSpan fastest_lap;
+        public TimeSpan fastest_lap;      
         public TimeSpan total_time;
         public int lap_count;
+        
     }
     public struct RaceData
     {
@@ -63,6 +65,7 @@ public class RaceGameplayHandler : MonoBehaviour
     }
     [Header("Inputs")]
     public float round_countdown_time;
+ 
 
     [Header("Outputs")]
     public TimeSpan race_time;
@@ -214,6 +217,7 @@ public class RaceGameplayHandler : MonoBehaviour
         {
             race.players[id].laps = new List<Lap>();
             race.players[id].current_lap = new Lap(DateTime.Now, 0, race.track);
+            player_race_data[id].fastest_lap = TimeSpan.MaxValue;
             race.players[id].lap_count++;
         }
      
@@ -229,7 +233,7 @@ public class RaceGameplayHandler : MonoBehaviour
             }
            
             if (!race.track.loop) //If the track is not set to loop
-            {
+            {               
                 FinishRace(id);
                 return;
             }
@@ -263,11 +267,15 @@ public class RaceGameplayHandler : MonoBehaviour
     }
 
     public void FinishRace(int id) 
-    {        
-        PlayerRaceData data = player_race_data[id];
+    {
+        score_handlers[id].EndComboSuccess();
+        player_race_data[id].drift_data = score_handlers[id].GetDriftData();
+        
+
         player_race_data[id].total_time = DateTime.Now.Subtract(race.players[id].laps[0].start_time);
         player_race_data[id].lap_count = race.players[id].lap_count;
-        player_race_data[id].drift_data = score_handlers[id].GetDriftData();
+        
+       
 
         race.finished_players[id] = true;
 
