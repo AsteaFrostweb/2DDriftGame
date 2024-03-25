@@ -20,7 +20,7 @@ public class DriftUIHandler : MonoBehaviour
     {
         drift_score_tmp = GameObject.Find("DriftScoreText").GetComponent<TextMeshProUGUI>();
         total_drift_score_tmp = GameObject.Find("ScoreText_TMP").GetComponent<TextMeshProUGUI>();
-        
+
 
         CarController controller = GameObject.FindAnyObjectByType<CarController>();
         if (controller != null)

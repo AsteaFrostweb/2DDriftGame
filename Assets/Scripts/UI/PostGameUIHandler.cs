@@ -86,7 +86,7 @@ public class PostGameUIHandler : MonoBehaviour
 
         total_score_text.text = total_score_text_base + dr_data.total_score.ToString("N0");
         total_time_text.text = total_time_text_base + pr_data.total_time.ToString(@"hh\:mm\:ss");
-        best_combo_score_text.text = best_combo_text_base + dr_data.best_combo_score;
+        best_combo_score_text.text = best_combo_text_base + dr_data.best_combo_score.ToString("N0");
         fastest_lap_text.text = fastest_lap_text_base + pr_data.fastest_lap.ToString(@"hh\:mm\:ss");
         longest_combo_text.text = longest_combo_text_base + dr_data.longest_combo.ToString(@"hh\:mm\:ss");
         total_combo_time_text.text = total_combo_time_text_base + dr_data.total_combo_time.ToString(@"hh\:mm\:ss");

@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static Track;
+using Debug = UnityEngine.Debug;
 
 
 public class RaceGameplayHandler : MonoBehaviour
@@ -176,15 +177,19 @@ public class RaceGameplayHandler : MonoBehaviour
 
     private void CheckNodeProximity(int id) 
     {
-        int next_node_order_index = race.players[id].current_lap.current_node_order_index + 1; //gets the next position in the node_order array
+        int next_node_order_index = race.players[id].current_lap.current_node_order_index + 1; //gets the next position in the node_order array        
         int next_node_index = race.track.path_node_order[next_node_order_index]; //gets the index of the Node in the nodes
+       
         Node next_node = race.track.GetNodes()[next_node_index]; //gets the node from the tracks nodes array
+        Node current_node = race.players[id].current_lap.current_node;
+      
 
-        //get vector to current node
-        Vector3 vec_to_node = race.players[id].current_lap.current_node.position - race.players[id].player_obj.transform.position;
+        Vector3 vec_to_node = current_node.position - race.players[id].player_obj.transform.position;
+        Debug.Log("Vec to node: " + vec_to_node.ToString());
         float dist_to_node = vec_to_node.magnitude;
-
-        if (dist_to_node < next_node.radius) 
+        Debug.Log("Dist to node: " + dist_to_node.ToString());
+        Debug.Log("Node Radius: " + current_node.radius);
+        if (dist_to_node < current_node.radius) 
         {
             UnityEngine.Debug.Log(race.players[id].player_obj.name + " reached node " + race.players[id].current_lap.current_node_order_index);
             race.players[id].current_lap.current_node = next_node;
@@ -230,6 +235,7 @@ public class RaceGameplayHandler : MonoBehaviour
             UnityEngine.Debug.Log(race.players[id].player_obj.name + " completed a lap.");
             race.players[id].current_lap.end_time = DateTime.Now;
             race.players[id].laps.Add(race.players[id].current_lap); //adds the players lap to its laps list
+            race.players[id].current_lap = new Lap(DateTime.Now, 0, race.track);
 
             if (player_race_data[id].fastest_lap.TotalSeconds > race.players[id].current_lap.current_time.TotalSeconds) //If this lap is the new fastest lap
             {
@@ -242,14 +248,13 @@ public class RaceGameplayHandler : MonoBehaviour
                 return;
             }           
 
-            if (race.players[id].lap_count >= race.track.loop_count && race.track.loop) //If looping is enabled and we've reaced or exceeded the loop limit
+            if (race.players[id].lap_count == race.track.loop_count) //If looping is enabled and we've reaced or exceeded the loop limit
             {
                 FinishRace(id);
                 return;
             }
 
-            race.players[id].lap_count++;
-            race.players[id].current_lap = new Lap(DateTime.Now, 0, race.track);           
+            race.players[id].lap_count++;                  
         }
         else
         {

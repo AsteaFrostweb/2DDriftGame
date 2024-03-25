@@ -92,8 +92,9 @@ public class Track : MonoBehaviour
             GameObject go = GameObject.Find("Node" + i);
             if (go != null)
             {
-                Debug.Log("found node " + i + "   assingning node " + i + " position of " + go.transform.position.ToString());
+               
                 node_objects[i] = go.transform;
+                
                
             }
         }
@@ -108,6 +109,7 @@ public class Track : MonoBehaviour
                 NodeComponent component = node_objects[i].GetComponent<NodeComponent>();
                 nodes[i].position = component.transform.position;
                 nodes[i].radius = component.radius;
+                Debug.Log("Assigning node " + i + " position of " + nodes[i].position.ToString() + "   radius of" + nodes[i].radius.ToString());
             }
             catch { Debug.Log("Node object doesn't have NodeComponent!"); }
 
