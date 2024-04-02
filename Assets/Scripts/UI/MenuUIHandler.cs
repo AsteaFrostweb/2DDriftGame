@@ -4,18 +4,21 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 using static Track;
 
 public class MenuUIHandler : MonoBehaviour
 {
     public enum SubMenus {NONE, SETTINGS, MAP_SELECT, CAR_SELECT, CREDITS, HIGHSCORES};
    
-
-
+    
+    private NetworkManager networkManager;
     private GameState game_state;
     private SubMenus current_sub_menu;
     private Maps current_map;
 
+    public UnityEngine.UI.Button logout_button;
+    public TextMeshProUGUI usernameTMP;
     public GameObject main_menu_panel;
     public GameObject map_select_panel;
     public GameObject car_select_panel;
@@ -23,13 +26,15 @@ public class MenuUIHandler : MonoBehaviour
   
     private GameObject[] sub_panels;
     private GameObject lap_count_slider_obj;
-    private Slider lap_count_slider;
+    private UnityEngine.UI.Slider lap_count_slider;
     private TextMeshProUGUI lap_count_value;
+    private bool username_set = false;
     // Start is called before the first frame update
     void Start()
     {
+        networkManager = GameObject.FindAnyObjectByType<NetworkManager>();
         lap_count_slider_obj = GameObject.Find("LapCountSlider");
-        lap_count_slider = lap_count_slider_obj.GetComponent<Slider>();
+        lap_count_slider = lap_count_slider_obj.GetComponent<UnityEngine.UI.Slider>();
         lap_count_value = lap_count_slider_obj.transform.Find("Value").GetComponent<TextMeshProUGUI>();
         game_state = GameObject.Find("GameState").GetComponent<GameState>();
         game_state.game_state = GameState.State.MENU;
@@ -39,12 +44,28 @@ public class MenuUIHandler : MonoBehaviour
 
         sub_panels = new GameObject[] { map_select_panel, car_select_panel, credits_panel };
         CloseSubMenus();
+
+      
     }
 
     // Update is called once per frame
     void Update()
     {
         lap_count_value.text = ((int)lap_count_slider.value).ToString();
+
+        if (usernameTMP != null && !username_set)
+        {
+            if (networkManager.IsLoggedIn)
+            {                
+                usernameTMP.text = "User: " + networkManager.Username;
+            }
+            else
+            {
+                logout_button.gameObject.SetActive(false);
+                usernameTMP.text = "User: Offline";
+            }
+            username_set = true;
+        }
     }
 
 
@@ -75,7 +96,7 @@ public class MenuUIHandler : MonoBehaviour
     }
     public void OnQuit()
     {
-
+        Application.Quit();
     }
 
 
@@ -149,8 +170,7 @@ public class MenuUIHandler : MonoBehaviour
         game_state.lap_count = (int)lap_count_slider.value;
         game_state.game_state = GameState.State.IN_GAME;
 
-        CloseSubMenus();        
-        DontDestroyOnLoad(game_state.gameObject);
+        CloseSubMenus();                
         LoadMap(current_map);
     }
 
