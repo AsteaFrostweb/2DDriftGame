@@ -17,7 +17,14 @@ public class UIFollowCar : MonoBehaviour
     public Vector3 final_offset;
     private Vector3 offset; // Offset from the car's position
     public Vector3 scale;
-
+    private void Awake()
+    {
+        if (scale_mode == ScaleMode.TRACKED)
+        {
+            minimap_size.x = tracking_rect.rect.width;
+            minimap_size.y = tracking_rect.rect.height;
+        }
+    }
     private void Start()
     {
         if (scale_mode == ScaleMode.TRACKED) 

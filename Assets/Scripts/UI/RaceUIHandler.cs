@@ -49,23 +49,26 @@ public class RaceUIHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-
-
-        lap_max_text.text = race_tracker.track.loop_count.ToString();
-        lap_current_text.text = race_tracker.players[0].lap_count.ToString();
-
-        if (!traffic_light_decayed) 
+        if (!traffic_light_decayed)
         {
             HandleTrafficLight();
         }
-        string score_string = gameplay_handler.score_handlers[0].current_total_drift_score.ToString("N0");
-        string total_time_string = DateTime.Now.Subtract(gameplay_handler.round_start_time).ToString(@"hh\:mm\:ss");
-        string lap_time_string = DateTime.Now.Subtract(race_tracker.players[0].current_lap.start_time).ToString(@"hh\:mm\:ss");
-        total_drift_score_tmp.text =  score_string;
-        total_time_tmp.text = total_time_string;
-        current_lap_time_tmp.text = lap_time_string;
 
+        
+        lap_max_text.text = race_tracker.track.loop_count.ToString();
+        lap_current_text.text = race_tracker.players[0].lap_count.ToString();
+
+       
+        string score_string = gameplay_handler.score_handlers[0].current_total_drift_score.ToString("N0");
+        total_drift_score_tmp.text = score_string;
+
+        if (gameplay_handler.race_started)// only update timers if the race as started as they contain rando values
+        {
+            string total_time_string = DateTime.Now.Subtract(gameplay_handler.round_start_time).ToString(@"hh\:mm\:ss");
+            string lap_time_string = DateTime.Now.Subtract(race_tracker.players[0].current_lap.start_time).ToString(@"hh\:mm\:ss");
+            total_time_tmp.text = total_time_string;
+            current_lap_time_tmp.text = lap_time_string;
+        }
     }
 
     private void HandleTrafficLight() 

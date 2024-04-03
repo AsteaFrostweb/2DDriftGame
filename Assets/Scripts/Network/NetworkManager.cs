@@ -4,7 +4,6 @@ using System.Globalization;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using UnityEngine;
 
 public class NetworkManager : MonoBehaviour
@@ -260,7 +259,7 @@ public class HighScores
         try
         {
             // Deserialize the JSON string into a list of Highscore objects
-            highscores = JsonConvert.DeserializeObject<List<Highscore>>(text);
+            highscores = JsonUtility.FromJson<List<Highscore>>(text);
         }
         catch (Exception ex)
         {

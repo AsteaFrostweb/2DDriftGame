@@ -16,9 +16,11 @@ public class MenuUIHandler : MonoBehaviour
     private GameState game_state;
     private SubMenus current_sub_menu;
     private Maps current_map;
+    private GameObject logout_button;
 
-    public UnityEngine.UI.Button logout_button;
     public TextMeshProUGUI usernameTMP;
+
+    public GameObject SettingsPanel;
     public GameObject main_menu_panel;
     public GameObject map_select_panel;
     public GameObject car_select_panel;
@@ -34,15 +36,14 @@ public class MenuUIHandler : MonoBehaviour
     {
         networkManager = GameObject.FindAnyObjectByType<NetworkManager>();
         lap_count_slider_obj = GameObject.Find("LapCountSlider");
-        lap_count_slider = lap_count_slider_obj.GetComponent<UnityEngine.UI.Slider>();
-        lap_count_value = lap_count_slider_obj.transform.Find("Value").GetComponent<TextMeshProUGUI>();
+       
         game_state = GameObject.Find("GameState").GetComponent<GameState>();
         game_state.game_state = GameState.State.MENU;
-
+        logout_button = GameObject.Find("LogoutButton");
         current_sub_menu = SubMenus.NONE;
         current_map = Maps.NONE;
 
-        sub_panels = new GameObject[] { map_select_panel, car_select_panel, credits_panel };
+        sub_panels = new GameObject[] { map_select_panel, car_select_panel, credits_panel , SettingsPanel};
         CloseSubMenus();
 
       
@@ -51,17 +52,33 @@ public class MenuUIHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        lap_count_value.text = ((int)lap_count_slider.value).ToString();
+        if (lap_count_slider_obj != null)
+        {            
+            lap_count_slider = lap_count_slider_obj.GetComponent<UnityEngine.UI.Slider>();
+            lap_count_value = lap_count_slider_obj.transform.Find("Value").GetComponent<TextMeshProUGUI>();
+            lap_count_value.text = ((int)lap_count_slider.value).ToString();
+        }
+        else 
+        {
+            lap_count_slider_obj = GameObject.Find("LapCountSlider");
+        }
 
         if (usernameTMP != null && !username_set)
         {
+            if (logout_button == null) 
+            {
+                logout_button = GameObject.Find("LogoutButton");
+                Debug.Log("Could't find logout button");
+                if (logout_button == null) return;
+            }
             if (networkManager.IsLoggedIn)
             {                
+                logout_button.SetActive(true);
                 usernameTMP.text = "User: " + networkManager.Username;
             }
             else
             {
-                logout_button.gameObject.SetActive(false);
+                logout_button.SetActive(false); 
                 usernameTMP.text = "User: Offline";
             }
             username_set = true;
@@ -72,23 +89,29 @@ public class MenuUIHandler : MonoBehaviour
 
     public void OnPlay() 
     {
+        
         if (current_sub_menu == SubMenus.MAP_SELECT || current_sub_menu == SubMenus.CAR_SELECT) 
         {
-            //if we are already in the play menu then return
-            return;
+            if (map_select_panel.activeInHierarchy)
+            {
+                map_select_panel.SetActive(false);
+                current_sub_menu = SubMenus.MAP_SELECT;
+                return;
+            }
         }
         if (current_sub_menu != SubMenus.NONE)
         {
             //if are in some other menu that isnt the play menu OR none
             CloseSubMenus();
         }
-
+        CloseSubMenus();
         map_select_panel.SetActive(true);
         current_sub_menu = SubMenus.MAP_SELECT;
     }
     public void OnSettings()
     {
-
+        CloseSubMenus();
+        SettingsPanel.SetActive(true);
     }
     public void OnCredits()
     {

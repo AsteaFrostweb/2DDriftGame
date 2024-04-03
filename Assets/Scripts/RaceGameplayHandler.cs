@@ -235,13 +235,15 @@ public class RaceGameplayHandler : MonoBehaviour
             UnityEngine.Debug.Log(race.players[id].player_obj.name + " completed a lap.");
             race.players[id].current_lap.end_time = DateTime.Now;
             race.players[id].laps.Add(race.players[id].current_lap); //adds the players lap to its laps list
-            race.players[id].current_lap = new Lap(DateTime.Now, 0, race.track);
+           
 
             if (player_race_data[id].fastest_lap.TotalSeconds > race.players[id].current_lap.current_time.TotalSeconds) //If this lap is the new fastest lap
             {
                 player_race_data[id].fastest_lap = race.players[id].current_lap.current_time;
             }
-           
+
+            race.players[id].current_lap = new Lap(DateTime.Now, 0, race.track);
+
             if (!race.track.loop) //If the track is not set to loop
             {               
                 FinishRace(id);
