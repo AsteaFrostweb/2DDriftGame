@@ -52,6 +52,26 @@ public class LoginUI : MonoBehaviour
                 return "Default unknown error";
         }
     }
+    public string GetRegisterErrorMessage(RegisterErrors? error)
+    {
+        switch (error)
+        {
+            case RegisterErrors.Username_Required:
+                return "Username field is required";
+            case RegisterErrors.Password_Required:
+                return "Password fiels id required";
+            case RegisterErrors.Invalid_Username:
+                return "Invalid username. Must be valid e-mail address.";
+            case RegisterErrors.Inavlid_Password:
+                return "Invalid password. Must be between 6-100 characters";
+            case RegisterErrors.No_Response:
+                return "Unable to connect to server.";
+            case RegisterErrors.Unknown_Error:
+                return "Unknown error";
+            default:
+                return "Default unknown error";
+        }
+    }
 
     public async void OnLoginButton() 
     {
@@ -70,16 +90,27 @@ public class LoginUI : MonoBehaviour
         }
     }
 
+    public async void OnRegisterButton()
+    {
+        await networkManager.GetHighscores("Sandy Slalom");
+       //handle registration
+    }
+
     public void OnContinueOffline() 
     {
         SceneManager.LoadScene("MainMenu");
     }
 
 
-    public void HandleFailedLogin(NetworkManager.LoginErrors? error) 
+    public void HandleFailedLogin(NetworkManager.LoginErrors?[] errors) 
     {
-        if (error != null) {
-            errorTMP.text = GetErrorMessage(error);
+        errorTMP.text = "";
+        if (errors != null) 
+        {
+            foreach (LoginErrors error in errors)
+            {
+                errorTMP.text += GetErrorMessage(error) + "\n";
+            }
         }
     }
 }

@@ -1,19 +1,22 @@
+
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class NetworkManager : MonoBehaviour
 {
     public struct VerificationRequest 
     {
         public string VerificationToken;
-        public LoginErrors? error;
+        public LoginErrors?[] error;
 
-        public VerificationRequest(string token, LoginErrors? _error) 
+        public VerificationRequest(string token, LoginErrors?[] _error) 
         {
             VerificationToken = token;
             error = _error;
@@ -23,17 +26,39 @@ public class NetworkManager : MonoBehaviour
     public struct LoginReponse 
     {
         public bool wasSuccess;
-        public LoginErrors? error;
+        public LoginErrors?[] error;
 
-        public LoginReponse(bool _success, LoginErrors? _error) 
+        public LoginReponse(bool _success, LoginErrors?[] _error) 
         {
             wasSuccess = _success;            
             error = _error;
         }
     }
-    public enum LoginErrors{Invalid_Credentials, No_Response, Unknown_Error}   
 
- 
+    //Error enums and functions
+    public enum LoginErrors{Invalid_Credentials, No_Response, Unknown_Error}
+    public enum RegisterErrors { Username_Taken, Password_Required, Username_Required, Invalid_Username, Inavlid_Password, No_Response, Unknown_Error }
+    public RegisterErrors?[] ParseRegisterErrors(string body, string username)
+    {
+        List<RegisterErrors?> error_list = new List<RegisterErrors?>();
+
+        if(body.Contains($"Username '{username}' is already taken.")) error_list.Add(RegisterErrors.Username_Taken); 
+        if (body.Contains($">The Password field is required.<")) error_list.Add(RegisterErrors.Password_Required);
+        if (body.Contains($">The Email field is required.<")) error_list.Add(RegisterErrors.Username_Required);
+        if (body.Contains($">The Email field is not a valid e-mail address.<")) error_list.Add(RegisterErrors.Invalid_Username);
+        if (body.Contains($">The Password must be at least 6 and at max 100 characters long.<")) error_list.Add(RegisterErrors.Inavlid_Password);
+
+        if (error_list.Count == 0)
+        {
+            return null;
+        }
+        else 
+        {
+            return error_list.ToArray();
+        }
+    }
+  
+
 
     private string baseUri = "https://localhost";
     private string Port = "7093";
@@ -75,7 +100,7 @@ public class NetworkManager : MonoBehaviour
         HttpResponseMessage response = await httpClient.PostAsync($"{UriString}/Identity/Account/Login", LoginData);
         if (response == null) 
         {
-            return new LoginReponse(false, request.error);
+            return new LoginReponse(false, new LoginErrors?[] {LoginErrors.Unknown_Error});
         }
         string content = await response.Content.ReadAsStringAsync();
         if (content.Contains("Hello " + Username, StringComparison.OrdinalIgnoreCase))         
@@ -85,7 +110,7 @@ public class NetworkManager : MonoBehaviour
         }
         else
         {
-            return new LoginReponse(false, LoginErrors.Unknown_Error);
+            return new LoginReponse(false, new LoginErrors?[]{ LoginErrors.Unknown_Error });
         }
     }
     //Gets a verification token from login page and then attempts to login with username and password specified
@@ -100,23 +125,22 @@ public class NetworkManager : MonoBehaviour
         string verificationToken = request.VerificationToken;
 
         FormUrlEncodedContent LoginData = GetLoginContent(verificationToken, Username, _password);
-        //Debug.Log(await LoginData.ReadAsStringAsync());
-        // Send POST request with form data
+     
         HttpResponseMessage response = await httpClient.PostAsync($"{UriString}/Identity/Account/Login", LoginData);
         if (response == null)
         {
             return new LoginReponse(false, request.error);
         }
         string content = await response.Content.ReadAsStringAsync();
-        //Debug.Log(content);
+    
         if (content.Contains("Hello " + _username, StringComparison.OrdinalIgnoreCase))
         {
             IsLoggedIn = true;
-            return new LoginReponse(true, null); ;
+            return new LoginReponse(true, null);
         }
         else
         {
-            return new LoginReponse(false, LoginErrors.Unknown_Error);
+            return new LoginReponse(false, new LoginErrors?[] { LoginErrors.Unknown_Error });
         }
     }
 
@@ -144,7 +168,7 @@ public class NetworkManager : MonoBehaviour
         }
         catch
         {
-            return new VerificationRequest(null, LoginErrors.No_Response);
+            return new VerificationRequest(null, new LoginErrors?[] { LoginErrors.No_Response });
         }
 
         string loginPageContent = await loginPageResponse.Content.ReadAsStringAsync();
@@ -219,6 +243,7 @@ public class HighscoreUpdateModel
     public float BestComboTime { get; set; }
 }
 
+
 public class Highscore
 {
     public string Name { get; set; }
@@ -247,19 +272,20 @@ public class HighScores
 {
     enum Sort_Order { DESC, ASC }
     enum Sort_By { NAME, FASTEST_LAP }
-
-    List<Highscore> highscores;
+  
 
 
 
     public static List<Highscore> ParseHighscores(string text)
     {
-        List<Highscore> highscores;
+        List<Highscore> highscores = new List<Highscore>();
+        Debug.Log("Attempting to parse: " + text);     
+
+
 
         try
-        {
-            // Deserialize the JSON string into a list of Highscore objects
-            highscores = JsonUtility.FromJson<List<Highscore>>(text);
+        {                     // Deserialize the JSON string into a list of Highscore objects
+            highscores = Newtonsoft.Json.JsonConvert.DeserializeObject<List<Highscore>>(text);          
         }
         catch (Exception ex)
         {
@@ -268,6 +294,11 @@ public class HighScores
             highscores = new List<Highscore>(); // Return an empty list if parsing fails
         }
 
+        
+        foreach (Highscore highscore in highscores) 
+        {
+            Debug.Log(highscore.ToString());
+        }
         return highscores;
     }
 

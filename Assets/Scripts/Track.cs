@@ -8,6 +8,23 @@ using UnityEngine;
 public class Track : MonoBehaviour
 {
     public enum Maps { NONE, CARTEENA, SANDY, MARKS }
+    public static string GetMapName(Maps maps) 
+    {
+        switch (maps) 
+        {
+            case Maps.NONE:
+                return "";
+            case Maps.CARTEENA:
+                return "Carteena Valley";
+            case Maps.SANDY:
+                return "Sandy Slalom";
+            case Maps.MARKS:
+                return "Mark's Map";
+            default:
+                return "";
+        }
+    }
+
     public struct Lap 
     {
         public LapState state;

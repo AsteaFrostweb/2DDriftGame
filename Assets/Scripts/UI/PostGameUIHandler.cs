@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -30,6 +31,8 @@ public class PostGameUIHandler : MonoBehaviour
     [SerializeField]
     public Image car_image;
     [SerializeField]
+    public TextMeshProUGUI map_name_text;   
+    [SerializeField]
     public TextMeshProUGUI total_score_text;
     private string total_score_text_base = "";
     [SerializeField]
@@ -56,7 +59,7 @@ public class PostGameUIHandler : MonoBehaviour
     {
         game_state = GameObject.FindAnyObjectByType<GameState>();
         pg_data = game_state.post_game_data;
-
+       
         total_score_text_base = total_score_text.text;
         total_time_text_base = total_time_text.text;
         best_combo_text_base = best_combo_score_text.text;
@@ -79,11 +82,16 @@ public class PostGameUIHandler : MonoBehaviour
         
     }
 
+    async Task<bool> PopulateHighscoresTable()
+    {
+        return false;
+    }
+
     void UpdateTextBoxes() 
     {
         RaceGameplayHandler.PlayerRaceData pr_data = pg_data.race_data.player_race_data[0]; //get player1's data
         DriftScoreHandler.DriftData dr_data = pg_data.race_data.player_race_data[0].drift_data;
-
+        map_name_text.text = Track.GetMapName(game_state.current_map);
         total_score_text.text = total_score_text_base + dr_data.total_score.ToString("N0");
         total_time_text.text = total_time_text_base + pr_data.total_time.ToString(@"hh\:mm\:ss");
         best_combo_score_text.text = best_combo_text_base + dr_data.best_combo_score.ToString("N0");

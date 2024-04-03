@@ -2442,7 +2442,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2058521898}
         m_TargetAssemblyTypeName: LoginUI, Assembly-CSharp
-        m_MethodName: OnLoginButton
+        m_MethodName: OnRegisterButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
