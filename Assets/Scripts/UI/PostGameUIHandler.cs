@@ -82,10 +82,7 @@ public class PostGameUIHandler : MonoBehaviour
         
     }
 
-    async Task<bool> PopulateHighscoresTable()
-    {
-        return false;
-    }
+   
 
     void UpdateTextBoxes() 
     {

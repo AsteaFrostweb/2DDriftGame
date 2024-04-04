@@ -216,13 +216,38 @@ public class NetworkManager : MonoBehaviour
         // Check if the response is successful
         return response.IsSuccessStatusCode;
     }
+    public async Task<bool> PostHighScore(Highscore highscore)
+    {
+        Debug.Log("Posting highscore: " + highscore.ToString());
+        // Create the form data
+        var formData = new List<KeyValuePair<string, string>>
+        {
+            new KeyValuePair<string, string>("MapName", highscore.Map),
+            new KeyValuePair<string, string>("FastestLap", highscore.FastestLapTimeSpan().TotalSeconds.ToString()),
+            new KeyValuePair<string, string>("BestComboScore", highscore.Best_Combo_Score.ToString()),
+            new KeyValuePair<string, string>("BestComboTime", highscore.BestComboTimeSpan().TotalSeconds.ToString())
+        };
 
-    public async Task<List<Highscore>> GetHighscores(string MapName)
+        // Create FormUrlEncodedContent
+        var content = new FormUrlEncodedContent(formData);
+
+        // Send POST request to the UpdateHighScore endpoint
+        HttpResponseMessage response = await httpClient.PostAsync($"{UriString}/Highscores/UpdateHighScore", content);
+
+        Console.WriteLine("Status Code: " + response.StatusCode.ToString());
+
+        // Check if the response is successful
+        return response.IsSuccessStatusCode;
+    }
+
+
+
+    public async Task<List<Highscore>> GetHighscores(string MapName, int ToRank, string UserName)
     {
         List<Highscore> highscores = new List<Highscore>();
 
         // Send POST request to the UpdateHighScore endpoint
-        HttpResponseMessage response = await httpClient.GetAsync($"{UriString}/Highscores/GetHighscores?MapName=" + MapName);
+        HttpResponseMessage response = await httpClient.GetAsync($"{UriString}/Highscores/GetHighscores?MapName={MapName}&ToRank={ToRank}&UserName={UserName}");
 
         string json = await response.Content.ReadAsStringAsync();
 
@@ -259,13 +284,73 @@ public class Highscore
 
     public TimeSpan BestComboTimeSpan()
     {
-        return TimeSpan.ParseExact(Best_Combo_Time, @"hh\:mm\:ss\:fff", CultureInfo.InvariantCulture);
+        return TimeSpan.ParseExact(Best_Combo_Time, @"hh\:mm\:ss\.fff", CultureInfo.InvariantCulture);
     }
     public TimeSpan FastestLapTimeSpan()
     {
-        return TimeSpan.ParseExact(Fastest_Lap, @"hh\:mm\:ss\:fff", CultureInfo.InvariantCulture);
+        return TimeSpan.ParseExact(Fastest_Lap, @"hh\:mm\:ss\.fff", CultureInfo.InvariantCulture);
     }
 
+    public static Highscore FromPostGameData(NetworkManager nm, PostGameData data)
+    {
+        Highscore h = new Highscore();
+
+        h.Name = nm.Username;
+        h.Map = Track.GetMapName(data.map);
+        h.Best_Combo_Score = data.race_data.player_race_data[0].drift_data.best_combo_score;
+        h.Best_Combo_Time = data.race_data.player_race_data[0].drift_data.longest_combo.ToString(@"hh\:mm\:ss\.fff");
+        h.Fastest_Lap = data.race_data.player_race_data[0].fastest_lap.ToString(@"hh\:mm\:ss\.fff");
+
+        return h;
+    }
+
+    public static Highscore Merge(Highscore h1, Highscore h2) 
+    {
+        if (h1.Name != h2.Name || h1.Map != h2.Map) 
+        {
+            Debug.LogError("Cant merge highscores that have different names or maps.");
+            return null;
+        }
+
+        Debug.Log("h1: " + h1.ToString());
+        Debug.Log("h2: " + h2.ToString());
+
+        Highscore return_highscore = new Highscore();
+        return_highscore.Name = h1.Name;
+        return_highscore.Map = h2.Map;
+        if (h1.FastestLapTimeSpan().TotalSeconds < h2.FastestLapTimeSpan().TotalSeconds)
+        {
+            return_highscore.Fastest_Lap = h1.Fastest_Lap;
+        }
+        else 
+        {
+            return_highscore.Fastest_Lap = h2.Fastest_Lap;
+        }
+        if (h1.Best_Combo_Score > h2.Best_Combo_Score)
+        {
+            return_highscore.Best_Combo_Score = h1.Best_Combo_Score;
+        }
+        else 
+        {
+            return_highscore.Best_Combo_Score = h2.Best_Combo_Score;
+        }
+        if (h1.BestComboTimeSpan().TotalSeconds > h2.BestComboTimeSpan().TotalSeconds)
+        {
+            return_highscore.Best_Combo_Time = h1.Best_Combo_Time;
+        }
+        else 
+        {
+            return_highscore.Best_Combo_Time = h2.Best_Combo_Time;
+        }
+
+        Debug.Log("Merged: " + return_highscore.ToString());
+        return return_highscore;
+    }
+
+    public bool Equals(Highscore h) 
+    {
+        return (h.Name == Name && h.Map == Map && h.Fastest_Lap == Fastest_Lap && h.Best_Combo_Time == Best_Combo_Time && h.Best_Combo_Score == Best_Combo_Score);            
+    }
 }
 
 public class HighScores

@@ -92,7 +92,7 @@ public class LoginUI : MonoBehaviour
 
     public async void OnRegisterButton()
     {
-        await networkManager.GetHighscores("Sandy Slalom");
+        //await networkManager.GetHighscores("Sandy Slalom");
        //handle registration
     }
 
