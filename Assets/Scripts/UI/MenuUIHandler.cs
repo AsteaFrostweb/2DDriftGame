@@ -68,7 +68,7 @@ public class MenuUIHandler : MonoBehaviour
             if (logout_button == null) 
             {
                 logout_button = GameObject.Find("LogoutButton");
-                Debug.Log("Could't find logout button");
+                Debugging.Log("Could't find logout button");
                 if (logout_button == null) return;
             }
             if (networkManager.IsLoggedIn)

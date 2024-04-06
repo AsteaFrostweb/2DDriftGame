@@ -57,7 +57,7 @@ public class TrackEditor : Editor
                 nodes[i].position = component.transform.position;
                 nodes[i].radius = component.radius;
             }
-            catch { Debug.Log("Node object doesn't have NodeComponent!"); }
+            catch { Debugging.Log("Node object doesn't have NodeComponent!"); }
             
         }
         target_track.SetNodes(nodes);

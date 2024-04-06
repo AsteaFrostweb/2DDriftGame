@@ -11,12 +11,12 @@ public class StartFinishCollider : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //Debug.Log("Enter");
+        //Debugging.Log("Enter");
         gameplayHandler.SetFinishline(collision.gameObject, true);
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        //Debug.Log("Exit");
+        //Debugging.Log("Exit");
         gameplayHandler.SetFinishline(collision.gameObject, false);
     }
  

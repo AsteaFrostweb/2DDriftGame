@@ -96,13 +96,13 @@ public class RaceGameplayHandler : MonoBehaviour
             GameObject player = GameObject.Find("Player" + i);
             if (player != null)
             {
-                UnityEngine.Debug.Log("player" + i + " found.");
+                Debugging.Log("player" + i + " found.");
                 race.players[i - 1] = new PlayerRace(i, player, true, null, new Lap());
                 score_handlers[i - 1] = race.players[i - 1].player_obj.GetComponent<DriftScoreHandler>();
                 race.players[i-1].car_controller = player.GetComponent<CarController>();
                 
             }
-            else { UnityEngine.Debug.Log("Couldn't find player: " + i); ans = false; }
+            else { Debugging.Log("Couldn't find player: " + i); ans = false; }
         }
         return ans;
     }
@@ -162,16 +162,16 @@ public class RaceGameplayHandler : MonoBehaviour
 
         for (int i = 0; i < race.players.Length; i++) 
         {
-            //UnityEngine.Debug.Log("player: " + (i + 1) + " is on node " + race.players[i].current_lap.current_node_order_index + "   Final node of track: " + (race.track.path_node_order.Length - 1));
+            //UnityEngine.Debugging.Log("player: " + (i + 1) + " is on node " + race.players[i].current_lap.current_node_order_index + "   Final node of track: " + (race.track.path_node_order.Length - 1));
             CheckStartFinishLine(i);
-            //UnityEngine.Debug.Log("2." + race.players[i].current_lap.current_node_order_index);
+            //UnityEngine.Debugging.Log("2." + race.players[i].current_lap.current_node_order_index);
             UpdatePlayerLapTime(i);
-            //UnityEngine.Debug.Log("3." + race.players[i].current_lap.current_node_order_index);
+            //UnityEngine.Debugging.Log("3." + race.players[i].current_lap.current_node_order_index);
             if (race.players[i].current_lap.current_node_order_index != race.track.path_node_order.Length - 1)
             {
                 CheckNodeProximity(i); //If we arent on the last node of the track, check the proximity to the next node
             }
-            //UnityEngine.Debug.Log("4." + race.players[i].current_lap.current_node_order_index);
+            //UnityEngine.Debugging.Log("4." + race.players[i].current_lap.current_node_order_index);
         }
     }
 
@@ -185,16 +185,16 @@ public class RaceGameplayHandler : MonoBehaviour
       
 
         Vector3 vec_to_node = current_node.position - race.players[id].player_obj.transform.position;
-        Debug.Log("Vec to node: " + vec_to_node.ToString());
+        Debugging.Log("Vec to node: " + vec_to_node.ToString());
         float dist_to_node = vec_to_node.magnitude;
-        Debug.Log("Dist to node: " + dist_to_node.ToString());
-        Debug.Log("Node Radius: " + current_node.radius);
+        Debugging.Log("Dist to node: " + dist_to_node.ToString());
+        Debugging.Log("Node Radius: " + current_node.radius);
         if (dist_to_node < current_node.radius) 
         {
-            UnityEngine.Debug.Log(race.players[id].player_obj.name + " reached node " + race.players[id].current_lap.current_node_order_index);
+            Debugging.Log(race.players[id].player_obj.name + " reached node " + race.players[id].current_lap.current_node_order_index);
             race.players[id].current_lap.current_node = next_node;
             race.players[id].current_lap.current_node_order_index++;
-            //UnityEngine.Debug.Log(race.players[id].player_obj.name + " dsa reached node " + race.players[id].current_lap.current_node_order_index);
+            //UnityEngine.Debugging.Log(race.players[id].player_obj.name + " dsa reached node " + race.players[id].current_lap.current_node_order_index);
         }
     }
 
@@ -232,7 +232,7 @@ public class RaceGameplayHandler : MonoBehaviour
      
         if (race.players[id].current_lap.current_node_order_index == race.track.path_node_order.Length - 1) //If the player has reacher the final node before raching the finish line
         {
-            UnityEngine.Debug.Log(race.players[id].player_obj.name + " completed a lap.");
+            Debugging.Log(race.players[id].player_obj.name + " completed a lap.");
             race.players[id].current_lap.end_time = DateTime.Now;
             race.players[id].laps.Add(race.players[id].current_lap); //adds the players lap to its laps list
            

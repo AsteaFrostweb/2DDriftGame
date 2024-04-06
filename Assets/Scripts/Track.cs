@@ -105,7 +105,7 @@ public class Track : MonoBehaviour
       
         for (int i = 0; i < node_objects.Length; i++)
         {
-            Debug.Log("looking for node " + i);
+            Debugging.Log("looking for node " + i);
             GameObject go = GameObject.Find("Node" + i);
             if (go != null)
             {
@@ -126,9 +126,9 @@ public class Track : MonoBehaviour
                 NodeComponent component = node_objects[i].GetComponent<NodeComponent>();
                 nodes[i].position = component.transform.position;
                 nodes[i].radius = component.radius;
-                Debug.Log("Assigning node " + i + " position of " + nodes[i].position.ToString() + "   radius of" + nodes[i].radius.ToString());
+                Debugging.Log("Assigning node " + i + " position of " + nodes[i].position.ToString() + "   radius of" + nodes[i].radius.ToString());
             }
-            catch { Debug.Log("Node object doesn't have NodeComponent!"); }
+            catch { Debugging.Log("Node object doesn't have NodeComponent!"); }
 
         }
         SetNodes(nodes);

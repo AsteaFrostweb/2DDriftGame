@@ -218,7 +218,7 @@ public class NetworkManager : MonoBehaviour
     }
     public async Task<bool> PostHighScore(Highscore highscore)
     {
-        Debug.Log("Posting highscore: " + highscore.ToString());
+        Debugging.Log("Posting highscore: " + highscore.ToString());
         // Create the form data
         var formData = new List<KeyValuePair<string, string>>
         {
@@ -306,14 +306,19 @@ public class Highscore
 
     public static Highscore Merge(Highscore h1, Highscore h2) 
     {
-        if (h1.Name != h2.Name || h1.Map != h2.Map) 
+        if (h1.Map == null && h2.Map == null) 
         {
-            Debug.LogError("Cant merge highscores that have different names or maps.");
+            Debugging.Log("Cant merge as both maps are null");
             return null;
         }
-
-        Debug.Log("h1: " + h1.ToString());
-        Debug.Log("h2: " + h2.ToString());
+        if (h1.Map == null && h2.Map != null) 
+        {
+            h1.Map = h2.Map;
+        }
+        if (h1.Map != null && h2.Map == null)
+        {
+            h2.Map = h1.Map;
+        }       
 
         Highscore return_highscore = new Highscore();
         return_highscore.Name = h1.Name;
@@ -343,7 +348,7 @@ public class Highscore
             return_highscore.Best_Combo_Time = h2.Best_Combo_Time;
         }
 
-        Debug.Log("Merged: " + return_highscore.ToString());
+        Debugging.Log("Merged: " + return_highscore.ToString());
         return return_highscore;
     }
 
@@ -364,7 +369,7 @@ public class HighScores
     public static List<Highscore> ParseHighscores(string text)
     {
         List<Highscore> highscores = new List<Highscore>();
-        Debug.Log("Attempting to parse: " + text);     
+        Debugging.Log("Attempting to parse: " + text);     
 
 
 
@@ -382,7 +387,7 @@ public class HighScores
         
         foreach (Highscore highscore in highscores) 
         {
-            Debug.Log(highscore.ToString());
+            Debugging.Log(highscore.ToString());
         }
         return highscores;
     }

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TMPro;
 using Unity.VisualScripting;
-using UnityEditor.VersionControl;
+
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,6 +16,7 @@ public class HighscoreUIManager : MonoBehaviour
     private GameObject DataRowsParent;
     private GameObject[] DataRows;
 
+    private PostGameUIHandler pg_uiHandler;
     private PostGameData pg_data;
     private NetworkManager networkManager;
     private GameState gameState;
@@ -33,37 +34,47 @@ public class HighscoreUIManager : MonoBehaviour
         networkManager = GameObject.FindAnyObjectByType<NetworkManager>();
         gameState = GameObject.FindAnyObjectByType<GameState>();
         pg_data = gameState.post_game_data;
-
+        pg_uiHandler = GameObject.FindAnyObjectByType<PostGameUIHandler>();
         highscores_updated = false;
         started_Display = false;
-        GetAndUpdateHighscore();
+
+        if (networkManager.IsLoggedIn)
+        {
+            GetAndUpdateHighscore();
+        }
+        else 
+        {
+            highscores_updated = true;
+        }
+    
         
     }
     private void Update()
     {
         if (highscores_updated && !started_Display) 
         {
+            Debugging.Log("Attempting to load and siaply highscores");
             LoadAndDisplayHighscores(null);
             started_Display = true;
         }
     }
     async void LoadAndDisplayHighscores(List<Highscore> highscores)
     {
-        Debug.Log("Attempting to load data for map:" + Track.GetMapName(gameState.current_map));
+        Debugging.Log("Attempting to load data for map:" + Track.GetMapName(gameState.current_map));
         if (highscores == null)
         {            
             highscores = await networkManager.GetHighscores(Track.GetMapName(gameState.current_map), 18, null);
             if (highscores.Count == 0)
-            { Debug.LogWarning("Error Retreiving highscores"); return; }
+            { Debugging.Log("Error Retreiving highscores"); return; }
         }
         else 
         {
             current_highscores = highscores;
         }
-        Debug.Log("Stating data asign");
+        Debugging.Log("Stating data asign");
         for (int i = 0; i < highscores.Count; i++) 
         {
-            Debug.Log("Assigning: " + highscores[i].ToString() + " to row " + highscores[i]);
+            Debugging.Log("Assigning: " + highscores[i].ToString() + " to row " + highscores[i]);
             AssignDataRowValues(DataRows[i], highscores[i]);
         }
     }
@@ -73,31 +84,33 @@ public class HighscoreUIManager : MonoBehaviour
         Highscore current_score = Highscore.FromPostGameData(networkManager, pg_data);
         if (server_score == null)
         {
-            Debug.Log("No Player highscore found. Attempting to upload current score...");
+            Debugging.Log("No Player highscore found. Attempting to upload current score...");
             if (await networkManager.PostHighScore(current_score)) 
             {
-                Debug.Log("Highscore posted succesfuly");
+                Debugging.Log("Highscore posted succesfuly");
             }
             else 
             {
-                Debug.Log("Unable to post highscore to server");
+                Debugging.Log("Unable to post highscore to server");
             }
             highscores_updated = true;
             return;
         }
 
         //Merge highscores to create the new higshcore(any better scores are updated)
+        Debugging.Log("Attmepting to merge:" + server_score.ToString() + current_score.ToString());
         Highscore merged_highscore = Highscore.Merge(server_score, current_score);
         if (!current_score.Equals(merged_highscore))  //if the new merged highscore is different than the current one
         {
-            Debug.Log("NEW HIGHSCORE!    Attempting to post highscore to server");
+            Debugging.Log("NEW HIGHSCORE!    Attempting to post highscore to server");
+            pg_uiHandler.isNewHighscore = true;
             if (await networkManager.PostHighScore(merged_highscore))
             {
-                Debug.Log("Highscore posted succesfuly");
+                Debugging.Log("Highscore posted succesfuly");
             }
             else
             {
-                Debug.Log("Unable to post highscore to server");
+                Debugging.Log("Unable to post highscore to server");
             }
         }
         highscores_updated = true;

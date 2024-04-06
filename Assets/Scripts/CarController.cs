@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 public class CarController : MonoBehaviour
 {
     Vector3 forward_projection;
-    CarInfo car_info;
+    Car car_info;
     
     public float current_speed = 0f;
     public float current_forward_speed = 0f;    
@@ -37,7 +37,7 @@ public class CarController : MonoBehaviour
 
 
         rb = GetComponent<Rigidbody2D>();
-        car_info = gameObject.GetComponent<CarInfo>();
+        car_info = gameObject.GetComponent<Car>();
     }
 
     void Update()
@@ -87,7 +87,7 @@ public class CarController : MonoBehaviour
     }
     void HandleRotation() 
     {
-        //Debug.Log("HandleRoatitom");
+        //Debugging.Log("HandleRoatitom");
         float speed_delta = 0f;
         float max_speed_delta = 1f;
         float rotation_delta = 0f;
@@ -113,7 +113,7 @@ public class CarController : MonoBehaviour
             if (current_forward_speed > car_info.min_turn_speed_speedThreshold)
             {
                 rotation += rotation_delta * Time.deltaTime;
-                //Debug.Log("Rotation Increment by:  " + rotation_delta);
+                //Debugging.Log("Rotation Increment by:  " + rotation_delta);
             }
         }
         else
@@ -121,7 +121,7 @@ public class CarController : MonoBehaviour
             if (current_forward_speed < -car_info.min_turn_speed_speedThreshold)
             {
                 rotation += -rotation_delta * Time.deltaTime;
-                //Debug.Log("Rotation Increment by:  " + rotation_delta);
+                //Debugging.Log("Rotation Increment by:  " + rotation_delta);
             }
         }
     }
@@ -273,8 +273,8 @@ public class CarController : MonoBehaviour
 
         float front_angle = Vector2.Angle(rb.velocity, forward_vector);// gets the angle between our forward movement and our current velocity
         float back_angle = Vector2.Angle(rb.velocity, -forward_vector);
-        //Debug.Log("Front Angle: " + front_angle);
-        //Debug.Log("Back Angle: " + back_angle);
+        //Debugging.Log("Front Angle: " + front_angle);
+        //Debugging.Log("Back Angle: " + back_angle);
 
         float angle = (front_angle <= back_angle) ? front_angle : back_angle;
 

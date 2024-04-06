@@ -36,7 +36,7 @@ public class UIFollowCar : MonoBehaviour
         {
             Vector3 screenPosition = minimapCamera.WorldToScreenPoint(target.position); 
             Vector2 minimap_pos = new Vector2(Mathf.Lerp(0, minimap_size.x, (screenPosition.x / minimapCamera.scaledPixelWidth)), Mathf.Lerp(0, minimap_size.y, (screenPosition.y / minimapCamera.scaledPixelHeight)));
-            Debug.Log("MiniMap_pos:" + minimap_pos.ToString());
+            Debugging.Log("MiniMap_pos:" + minimap_pos.ToString());
         }
       
 

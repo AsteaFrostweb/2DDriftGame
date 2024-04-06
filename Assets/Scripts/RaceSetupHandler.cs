@@ -46,7 +46,7 @@ public class RaceSetupHandler : MonoBehaviour
             }
             catch
             {
-                Debug.Log("Error spawning player");
+                Debugging.Log("Error spawning player");
             }
         }
     }

@@ -81,7 +81,7 @@ public class LoginUI : MonoBehaviour
         if (login_response.wasSuccess)
         {
             //login sucessful
-            Debug.Log("login succesful");
+            Debugging.Log("login succesful");
             SceneManager.LoadScene("MainMenu");
         }
         else 

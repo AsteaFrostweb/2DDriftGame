@@ -51,14 +51,14 @@ public class VideoSettings : MonoBehaviour
         int resolutionIndex = resolutionDropdown.value;      
         Screen.SetResolution((int)used_res[resolutionIndex].x, (int)used_res[resolutionIndex].y, Screen.fullScreen);
         
-        Debug.Log("Resolution changed to:" + used_res[resolutionIndex].ToString());
+        Debugging.Log("Resolution changed to:" + used_res[resolutionIndex].ToString());
     }
 
     public void SetFullscreen(bool b)
     {
         bool isFullscreen = fullscreenToggle.isOn;
         Screen.fullScreen = isFullscreen;        
-        Debug.Log("Fullscreen toggled " + isFullscreen.ToString());
+        Debugging.Log("Fullscreen toggled " + isFullscreen.ToString());
     }
 
     private int GetCurrentResolutionIndex()

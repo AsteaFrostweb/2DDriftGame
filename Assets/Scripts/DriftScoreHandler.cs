@@ -137,7 +137,7 @@ public class DriftScoreHandler : MonoBehaviour
         {
             if (was_drifting) 
             {
-                //Debug.Log("Eng of drift");
+                //Debugging.Log("Eng of drift");
                 //Runs on the first frame we stop drifting 
                 previous_drift_end = DateTime.Now;
 
@@ -155,7 +155,7 @@ public class DriftScoreHandler : MonoBehaviour
                     in_combo = false;
                     crashed = true;                    
                     all_combos.Add(current_combo);
-                    //Debug.Log("Crashed with combo score of: " + current_combo.TotalScore());
+                    //Debugging.Log("Crashed with combo score of: " + current_combo.TotalScore());
                 }
 
                 if (DateTime.Now.Subtract(previous_drift_end).Seconds >= drift_multiplier_time)
@@ -174,7 +174,7 @@ public class DriftScoreHandler : MonoBehaviour
     public void EndComboSuccess() 
     {
         current_combo.end_time = DateTime.Now;
-        //Debug.Log(current_combo.TotalScore());
+        //Debugging.Log(current_combo.TotalScore());
         current_total_drift_score += (int)current_combo.TotalScore();
         all_combos.Add(current_combo);
         in_combo = false;
