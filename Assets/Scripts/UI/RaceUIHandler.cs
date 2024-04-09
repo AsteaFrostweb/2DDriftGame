@@ -7,7 +7,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class RaceUIHandler : MonoBehaviour
-{    
+{
+    
     [SerializeField]
     private Image traffic_light;
     [SerializeField]
@@ -19,6 +20,7 @@ public class RaceUIHandler : MonoBehaviour
     [SerializeField]
     private float traffic_light_lifetime = 1f;
     private bool traffic_light_decayed;
+    private bool brake_lightActive = false;
     
     private DateTime race_start_time;
 
@@ -54,7 +56,17 @@ public class RaceUIHandler : MonoBehaviour
             HandleTrafficLight();
         }
 
-        
+        if (race_tracker.players[0].car_controller.is_breaking && !brake_lightActive)
+        {
+            race_tracker.players[0].player_obj.transform.Find("Brakelight").gameObject.SetActive(true);
+            brake_lightActive = true;
+        }
+        if (!race_tracker.players[0].car_controller.is_breaking && brake_lightActive)
+        {
+            race_tracker.players[0].player_obj.transform.Find("Brakelight").gameObject.SetActive(false);
+            brake_lightActive = false;
+        }
+
         lap_max_text.text = race_tracker.track.loop_count.ToString();
         lap_current_text.text = race_tracker.players[0].lap_count.ToString();
 

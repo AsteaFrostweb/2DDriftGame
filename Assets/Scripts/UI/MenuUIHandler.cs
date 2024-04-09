@@ -157,15 +157,20 @@ public class MenuUIHandler : MonoBehaviour
         car_select_panel.SetActive(true);
 
     }
-    public void OnMarksMap()
+    public void OnRacewayRidge()
     {
-        current_map = Maps.MARKS;
-        game_state.current_map = Maps.MARKS;
+        current_map = Maps.RACEWAYRIDGE;
+        game_state.current_map = Maps.RACEWAYRIDGE;
         CloseSubMenus();
         car_select_panel.SetActive(true);
-
     }
-
+    public void OnGearshiftGorge()
+    {
+        current_map = Maps.GEARSHIFT;
+        game_state.current_map = Maps.GEARSHIFT;
+        CloseSubMenus();
+        car_select_panel.SetActive(true);
+    }
 
 
     //--------Car Select Functions--------
@@ -202,13 +207,16 @@ public class MenuUIHandler : MonoBehaviour
         switch (map) 
         {
             case Maps.CARTEENA:
-                SceneManager.LoadScene("Carteena Valley");
+                SceneManager.LoadScene("CarteenaValley");
                 break;
             case Maps.SANDY:
-                SceneManager.LoadScene("Sandy Slalom");
+                SceneManager.LoadScene("SandySlalom");
                 break;
-            case Maps.MARKS:
-                SceneManager.LoadScene("Marks Map");
+            case Maps.RACEWAYRIDGE:
+                SceneManager.LoadScene("RacewayRidge");
+                break;
+            case Maps.GEARSHIFT:
+                SceneManager.LoadScene("GearshiftGorge");
                 break;
         }
     }

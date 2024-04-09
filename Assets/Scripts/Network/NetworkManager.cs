@@ -61,7 +61,7 @@ public class NetworkManager : MonoBehaviour
 
 
     private string baseUri = "https://localhost";
-    private string Port = "7093";
+    private string Port = "443";
     public string Username  { get; set; }
     public string Password { private get; set; }
     public string UriString { get { return baseUri + ":" + Port; } }

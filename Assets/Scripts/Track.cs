@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class Track : MonoBehaviour
 {
-    public enum Maps { NONE, CARTEENA, SANDY, MARKS }
+    public enum Maps { NONE, CARTEENA, SANDY, RACEWAYRIDGE, GEARSHIFT }
     public static string GetMapName(Maps maps) 
     {
         switch (maps) 
@@ -18,8 +18,10 @@ public class Track : MonoBehaviour
                 return "Carteena Valley";
             case Maps.SANDY:
                 return "Sandy Slalom";
-            case Maps.MARKS:
-                return "Mark's Map";
+            case Maps.GEARSHIFT:
+                return "Gearshift Gorge";
+            case Maps.RACEWAYRIDGE:
+                return "Raceway Ridge";
             default:
                 return "";
         }

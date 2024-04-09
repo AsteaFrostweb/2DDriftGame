@@ -396,6 +396,7 @@ Transform:
   - {fileID: 1332377534322219795}
   - {fileID: 5221763613658774025}
   - {fileID: 8714909464095575203}
+  - {fileID: 6152018628950547711}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 18}
 --- !u!50 &4342017998260870567
@@ -439,6 +440,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   acceleration: 1000
   max_speed: 40
+  braking_strength: 0.5
   min_turn_angle: 0.1
   max_turn_angle: 4600
   turn_acceleration: 13250
@@ -449,7 +451,7 @@ MonoBehaviour:
   min_turn_speed_speedThreshold: 1
   max_turn_speed_speedThreshold: 7.5
   defualt_tyre_grip: 2.25
-  drift_grip_reduction: 0.75
+  drift_grip_reduction: 1.25
   brake_grip_reduction: 0.5
 --- !u!114 &5012912100877472207
 MonoBehaviour:
@@ -978,3 +980,69 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 0
   m_ApplyActiveColorSpace: 1
+--- !u!1001 &478450571115326898
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6687641857480315934}
+    m_Modifications:
+    - target: {fileID: 2581137503570976295, guid: bbba0f116a684864faf628d5f1b26f45, type: 3}
+      propertyPath: m_Name
+      value: Brakelight
+      objectReference: {fileID: 0}
+    - target: {fileID: 2581137503570976295, guid: bbba0f116a684864faf628d5f1b26f45, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6035826372516491597, guid: bbba0f116a684864faf628d5f1b26f45, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.028
+      objectReference: {fileID: 0}
+    - target: {fileID: 6035826372516491597, guid: bbba0f116a684864faf628d5f1b26f45, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.646
+      objectReference: {fileID: 0}
+    - target: {fileID: 6035826372516491597, guid: bbba0f116a684864faf628d5f1b26f45, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6035826372516491597, guid: bbba0f116a684864faf628d5f1b26f45, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6035826372516491597, guid: bbba0f116a684864faf628d5f1b26f45, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6035826372516491597, guid: bbba0f116a684864faf628d5f1b26f45, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6035826372516491597, guid: bbba0f116a684864faf628d5f1b26f45, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6035826372516491597, guid: bbba0f116a684864faf628d5f1b26f45, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6035826372516491597, guid: bbba0f116a684864faf628d5f1b26f45, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6035826372516491597, guid: bbba0f116a684864faf628d5f1b26f45, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 180
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bbba0f116a684864faf628d5f1b26f45, type: 3}
+--- !u!4 &6152018628950547711 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6035826372516491597, guid: bbba0f116a684864faf628d5f1b26f45, type: 3}
+  m_PrefabInstance: {fileID: 478450571115326898}
+  m_PrefabAsset: {fileID: 0}

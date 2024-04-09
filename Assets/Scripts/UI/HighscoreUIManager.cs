@@ -100,7 +100,7 @@ public class HighscoreUIManager : MonoBehaviour
         //Merge highscores to create the new higshcore(any better scores are updated)
         Debugging.Log("Attmepting to merge:" + server_score.ToString() + current_score.ToString());
         Highscore merged_highscore = Highscore.Merge(server_score, current_score);
-        if (!current_score.Equals(merged_highscore))  //if the new merged highscore is different than the current one
+        if (!server_score.Equals(merged_highscore))  //if the new merged highscore is different than the current one
         {
             Debugging.Log("NEW HIGHSCORE!    Attempting to post highscore to server");
             pg_uiHandler.isNewHighscore = true;

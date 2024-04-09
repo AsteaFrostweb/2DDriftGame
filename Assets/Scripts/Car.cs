@@ -9,6 +9,7 @@ public class Car : MonoBehaviour
     public float acceleration = 250f;
     public float max_speed = 35f;
 
+    public float braking_strength = 0.5f;
 
     public float min_turn_angle = 0.1f;
     public float max_turn_angle = 12f;

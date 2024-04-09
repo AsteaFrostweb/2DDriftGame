@@ -56,8 +56,11 @@ public class CarController : MonoBehaviour
         //Handle's the rotation of the car.
         HandleRotation();
 
-        //Handle's assigning of horizntal input
-        HandleHorizontalInput();       
+        //Handles assigning of horizntal input
+        HandleHorizontalInput();
+
+        //Handles the braking :)
+        HandleBraking();
 
         //Clamps speed at cars max speed
         ClampSpeed();
@@ -65,7 +68,17 @@ public class CarController : MonoBehaviour
         //Clamps turn speed at cars max turn speed
         ClampTurnSpeed();
     }
-
+    private void CalculateForwardSpeed() 
+    {
+        if (!is_moving_backwards)
+        {
+            current_forward_speed = forward_projection.magnitude; //if where moving forward then the current_forward_soeed is posititive +
+        }
+        else
+        {
+            current_forward_speed = -forward_projection.magnitude;//if where moving backwards then the current_forward_soeed is negative -
+        }
+    }
     void GetMovementInfo() 
     {
         forward_projection = Vector3.Project(rb.velocity, transform.up);
@@ -76,14 +89,7 @@ public class CarController : MonoBehaviour
             current_drift_angle = 180 - current_drift_angle;
         }
 
-        if (!is_moving_backwards)
-        {
-            current_forward_speed = forward_projection.magnitude; //if where moving forward then the current_forward_soeed is posititive +
-        }
-        else
-        {
-            current_forward_speed = -forward_projection.magnitude;//if where moving backwards then the current_forward_soeed is negative -
-        }
+        CalculateForwardSpeed();
     }
     void HandleRotation() 
     {
@@ -167,6 +173,7 @@ public class CarController : MonoBehaviour
         horizontalInput = Input.GetAxis("Horizontal") * Time.deltaTime;
         verticalInput += Input.GetAxis("Vertical") * Time.deltaTime;
 
+        is_breaking = IsBreaking();
         is_drifting = IsDrifting();
         is_moving_backwards = IsMovingBackward();
     }
@@ -214,15 +221,24 @@ public class CarController : MonoBehaviour
         }
 
     }
-
+    public bool IsBreaking() 
+    {
+        if (Input.GetButton("Braking") && current_forward_speed > 0.01f)
+        {
+            return true;
+        }
+        else 
+        {
+            return false;
+        }
+    }
     public float GetTyreGrip() 
     {
         float grip = car_info.defualt_tyre_grip;
-        if (is_drifting) 
-        {
-            grip -= car_info.drift_grip_reduction;
-            grip -= car_info.drift_grip_reduction;
-        }
+
+        if (is_drifting) grip -= car_info.drift_grip_reduction;
+       
+        if (is_breaking) grip -= car_info.brake_grip_reduction;        
 
         return grip;
     }
@@ -288,10 +304,25 @@ public class CarController : MonoBehaviour
         else if (dot_product < 0)
         {
             rb.velocity = Vector2.MoveTowards(rb.velocity, -forward_vector * rb.velocity.magnitude, step);
-        }
-        
+        }       
+    }
 
+    public void HandleBraking()
+    {
+        if (!is_breaking) return;
+
+        Debugging.Log("Attempting to handle braking");
+        int sign_mult = current_forward_speed >= 0 ? 1 : -1;
+
+        Vector2 reduction_vector = Vector3.Project(rb.velocity, transform.up) * (1 / car_info.braking_strength * Time.deltaTime);
         
+        rb.velocity -= reduction_vector;
+
+        if (rb.velocity.magnitude < 0.05f) 
+        {
+            rb.velocity = new Vector2(0f, 0f);
+        }
+       
     }
 
     private void FixedUpdate()
