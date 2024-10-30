@@ -28,8 +28,7 @@ Tenacious Drift 2D and 3D have been a learning experience, improving my game dev
 
 ### Dev console and limited command API
 
-The developer/debugging console is enabled with the (`) key.
-It is a built in UI that allows debugging and access to a limited API.
+The developer/debugging console is enabled with the **`** key.  It allows debugging and access to a limited selection of commands.
 
 #### API
   - "show-ip"  :  Displays the current server IP assigned in the NetworkManager
