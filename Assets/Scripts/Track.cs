@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using DriftGame.Utility;
 
 
 public class Track : MonoBehaviour

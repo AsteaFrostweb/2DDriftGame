@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Device;
 using UnityEngine.UI;
 using Screen = UnityEngine.Screen;
+using DriftGame.Utility;
 
 public class VideoSettings : MonoBehaviour
 {

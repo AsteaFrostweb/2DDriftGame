@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static Track;
-using Debug = UnityEngine.Debug;
+using DriftGame.Utility;
 
 
 public class RaceGameplayHandler : MonoBehaviour
@@ -232,7 +232,7 @@ public class RaceGameplayHandler : MonoBehaviour
      
         if (race.players[id].current_lap.current_node_order_index == race.track.path_node_order.Length - 1) //If the player has reacher the final node before raching the finish line
         {
-            Debugging.Log(race.players[id].player_obj.name + " completed a lap.");
+            Debugging.Log(race.players[id].player_obj.name + " completed a lap."); 
             race.players[id].current_lap.end_time = DateTime.Now;
             race.players[id].laps.Add(race.players[id].current_lap); //adds the players lap to its laps list
            

@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using static Track;
+using DriftGame.Utility;
 
 public class MenuUIHandler : MonoBehaviour
 {

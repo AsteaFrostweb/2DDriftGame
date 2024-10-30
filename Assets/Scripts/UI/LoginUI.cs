@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using static NetworkManager;
+using DriftGame.Utility;
 
 public class LoginUI : MonoBehaviour
 {

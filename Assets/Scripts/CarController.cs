@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
+using DriftGame.Utility;
 
 public class CarController : MonoBehaviour
 {

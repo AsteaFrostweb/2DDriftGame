@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEditor;
 using UnityEditor.Tilemaps;
+using DriftGame.Utility;
 
 [CustomEditor(typeof(Track))]
 public class TrackEditor : Editor

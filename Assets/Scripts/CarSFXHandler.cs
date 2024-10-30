@@ -58,8 +58,8 @@ public class CarSFXHandler : MonoBehaviour
         StartEngineLoop();
 
         //Initalize change trackers
-        engine_loop_tracker = new ChangeTracker<bool>(() => controller.is_accelerating); 
-        drift_loop_tracker = new ChangeTracker<bool>(() => controller.is_drifting);
+       
+
         combo_change_tracker = new ChangeTracker<bool>(() => driftScoreHandler.in_combo);
         braking_tracker = new ChangeTracker<bool>(() => controller.is_breaking);
         combo_mult_tracker = new ChangeTracker<int>(() => driftScoreHandler.current_combo.multiplier);
