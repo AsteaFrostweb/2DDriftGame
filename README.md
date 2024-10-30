@@ -38,10 +38,19 @@ The developer/debugging console is enabled with the **`** key.  It allows debugg
 ### - User accounts and Highscores - 
 
 The user accounts and high scores are handles by the external [HighscoresApplication](https://github.com/AsteaFrostweb/2DDriftGameHighscores/tree/main). 
-This allows the game to poll the server upon race completion to determine whether to update the highscores for that particular person ont that map.
+This allows the game to poll the server upon race completion to determine whether to update the highscores for that particular person on that map.
 The highscores contains different aspects like: Longest Combo Time, Longest Combo Distance, Best Combo Score, Fastest Lap which can each be updated individually.
 
 ### - Main Menu -
+
+#### Map Selection:
+
+The map selection screen on the main menu allows you to choose: Track, Car and Lap Count. There are 4 tracks and cars to chose from.
+
+#### Settings screen:
+
+The settings screen is very limited but would be flushed out if I where to continue the proect. It currently only contains the ability to change the resolution of the game and to toggle fullscreen mode.
+
 
 ---
 
