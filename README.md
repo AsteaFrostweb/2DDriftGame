@@ -26,7 +26,7 @@ Tenacious Drift 2D and 3D have been a learning experience, improving my game dev
 
 ## Feature Overview:
 
-### Dev console and limited command API
+### - Developer Console - 
 
 The developer/debugging console is enabled with the **`** key.  It allows debugging and access to a limited selection of commands.
 
