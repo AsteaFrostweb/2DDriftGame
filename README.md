@@ -1,6 +1,6 @@
 # Tenacious Drift 2D
 
-Welcome to Tenacious Drift 2D, a project to continue growing skills in game development; Focusing on intergration with and creation of online services.<br>
+Welcome to Tenacious Drift 2D, a project to continue growing skills in software development; Focusing on intergration and creation of online services within a video game context.<br>
 
 ## How to Run
 
