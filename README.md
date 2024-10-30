@@ -26,9 +26,10 @@ Tenacious Drift 2D and 3D have been a learning experience, improving my game dev
 
 ## Feature Overview:
 
-### Global
+### - Dev console and limited command API
 
-#### Debug log and limited command API
+The developer/debugging console, enabled with the ` key, is a built in UI that allows debugging and access to a limited API.
+#### API
   - "show-ip"  :  Displays the current server IP assigned in the NetworkManager
   - "set-ip [ip]"  :  Sets the curerent server IP. Example: "set-ip localhost"
   - "set-port [port]"  : Sets the curerent server Port. Example: "set-port 25565"
