@@ -23,6 +23,13 @@ Tenacious Drift 2D and 3D have been a learning experience, improving my game dev
 - **Race Scene**: Race around the map trying to get a high drift-score, lap-time, or combo time.
 - **Post-Game Scene**: Display and update highscores on the current map.
 
+
+## Feature Overview:
+
+### Global
+
+ - Debug
+
 ---
 
 ## Credits & Software:
@@ -45,6 +52,7 @@ Tenacious Drift 2D and 3D have been a learning experience, improving my game dev
 I will now be moving onto new projects.<br>
 These are some thigs that I would add if I were to continue with this project:
 
+- **Add Info screen to explain how to play**
 - **Add more verbose/usefull login error messages**
 - **Improve and polish other maps**
 - **Add Credits Screen**
