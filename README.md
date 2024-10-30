@@ -28,8 +28,11 @@ Tenacious Drift 2D and 3D have been a learning experience, improving my game dev
 
 ### Global
 
- - Debug
-
+#### Debug log and limited command API
+  - "show-ip"  :  Displays the current server IP assigned in the NetworkManager
+  - "set-ip [ip]"  :  Sets the curerent server IP. Example: "set-ip localhost"
+  - "set-port [port]"  : Sets the curerent server Port. Example: "set-port 25565"
+ 
 ---
 
 ## Credits & Software:
