@@ -55,13 +55,13 @@ The map selection screen on the main menu allows you to choose: Track, Car and L
 The settings screen is very limited but would be flushed out if I where to continue the project. <br/>
 It currently only contains the ability to change the resolution of the game and to toggle fullscreen mode. <br/>
 
-### Cars and Drifting 
+### --- Cars and Drifting ---
 
 The cars have different sprites and stats which affect the way they handle and preform. <br/>
 Depeinding on a cars grip, acceleration and velocity relative to direction the car is facing it can, and should, enter a drift. <br/>
 This is an integral gameplay element and is whats use to generate combos and score. <br/>
 
-### Tracks, Races and Checkpoints 
+### --- Tracks, Races and Checkpoints --- 
 
 Each track is divided up into a number of checopint "Nodes". <br/>
 These nodes are a position and a radius. <br/>
