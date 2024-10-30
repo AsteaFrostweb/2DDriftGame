@@ -1,13 +1,14 @@
 # Tenacious Drift 2D
 
 Welcome to Tenacious Drift 2D, a project to continue growing skills in game development; Focusing on intergration with and creation of online services.<br>
-This project was de
+
+## How to Run
 
 ---
 
 ## Why I Created This Project:
 
-Tenacious Drift 3D and 2D has been a learning experience, improving my game development skills:
+Tenacious Drift 2D and 3D have been a learning experience, improving my game development skills:
 
 - **Game Design** Design of systems, art, map creation.
 - **UI Development**: Crafting user-friendly interfaces.
@@ -21,12 +22,6 @@ Tenacious Drift 3D and 2D has been a learning experience, improving my game deve
 - **Menu Scene**: Choose maps, cars, settings, etc.
 - **Race Scene**: Race around the map trying to get a high drift-score, lap-time, or combo time.
 - **Post-Game Scene**: Display and update highscores on the current map.
-
----
-
-## Video of Gameplay:
-
-[![Video Title](ReadMeImages/Thumbnail2.png)](https://www.youtube.com/watch?v=mMqFDnPowNg)
 
 ---
 
@@ -50,7 +45,8 @@ Tenacious Drift 3D and 2D has been a learning experience, improving my game deve
 I will now be moving onto new projects.<br>
 These are some thigs that I would add if I were to continue with this project:
 
-- **Add 3 More Maps**
+- **Add more verbose/usefull login error messages**
+- **Improve and polish other maps**
 - **Add Credits Screen**
 - **Add Settings Screen**
 - **Improve Race Scene Decoration**
