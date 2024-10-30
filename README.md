@@ -37,7 +37,11 @@ The developer/debugging console is enabled with the **`** key.  It allows debugg
 
 ### - User accounts and Highscores - 
 
-The user accounts and high scores are handles by the external [HighscoresApplication](https://github.com/AsteaFrostweb/2DDriftGameHighscores/tree/main)
+The user accounts and high scores are handles by the external [HighscoresApplication](https://github.com/AsteaFrostweb/2DDriftGameHighscores/tree/main). 
+This allows the game to poll the server upon race completion to determine whether to update the highscores for that particular person ont that map.
+The highscores contains different aspects like: Longest Combo Time, Longest Combo Distance, Best Combo Score, Fastest Lap which can each be updated individually.
+
+### - Main Menu -
 
 ---
 
