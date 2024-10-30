@@ -30,11 +30,15 @@ Tenacious Drift 2D and 3D have been a learning experience, improving my game dev
 
 The developer/debugging console is enabled with the **`** key.  It allows debugging and access to a limited selection of commands.
 
-#### API
+#### Commands
   - "show-ip"  :  Displays the current server IP assigned in the NetworkManager
   - "set-ip [ip]"  :  Sets the curerent server IP. Example: "set-ip localhost"
   - "set-port [port]"  : Sets the curerent server Port. Example: "set-port 25565"
- 
+
+### - User accounts and Highscores - 
+
+The user accounts and high scores are handles by the external [HighscoresApplication](https://github.com/AsteaFrostweb/2DDriftGameHighscores/tree/main)
+
 ---
 
 ## Credits & Software:
