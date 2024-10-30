@@ -52,7 +52,7 @@ The map selection screen on the main menu allows you to choose: Track, Car and L
 
 #### Settings screen:
 
-The settings screen is very limited but would be flushed out if I where to continue the project <br/>.
+The settings screen is very limited but would be flushed out if I where to continue the project. <br/>
 It currently only contains the ability to change the resolution of the game and to toggle fullscreen mode. <br/>
 
 ### - Cars and Drifting - 
