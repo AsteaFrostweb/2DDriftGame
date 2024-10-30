@@ -35,11 +35,13 @@ The developer/debugging console is enabled with the **`** key.  It allows debugg
   - "set-ip [ip]"  :  Sets the curerent server IP. Example: "set-ip localhost"
   - "set-port [port]"  : Sets the curerent server Port. Example: "set-port 25565"
 
+
 ### - User accounts and Highscores - 
 
 The user accounts and high scores are handles by the external [HighscoresApplication](https://github.com/AsteaFrostweb/2DDriftGameHighscores/tree/main). 
 This allows the game to poll the server upon race completion to determine whether to update the highscores for that particular person on that map.
 The highscores contains different aspects like: Longest Combo Time, Longest Combo Distance, Best Combo Score, Fastest Lap which can each be updated individually.
+
 
 ### - Main Menu -
 
@@ -51,6 +53,18 @@ The map selection screen on the main menu allows you to choose: Track, Car and L
 
 The settings screen is very limited but would be flushed out if I where to continue the proect. It currently only contains the ability to change the resolution of the game and to toggle fullscreen mode.
 
+### - Cars and Drifting - 
+
+The cars have different sprites and stats which affect the way they handle and preform.
+Depeinding on a cars grip, acceleration and velocity relative to direction the car is facing it can, and should, enter a drift. This is an integral gameplay element and is whats use to generate combos and score.
+
+### - Tracks, Races and Checkpoints -
+
+Each track is devided up into a number of checopint "Nodes". These nodes are a position and a radius and once a car comes within the nodes radius it is said to have reached the node and its "Target Node" becomes the next node in the track.
+Once the player reaches the final node before the finish line it will enable completion of that lap. 
+A race is a collection of laps and has some other information like which cars are involved ect. 
+In most places I have encluded the ability to handle multiple cars as I beleive BOT cars wouldnt be too difficult to implement with the node checkpoint system.
+Therefore the races do have the abiolity to store multiple different car/node/lap states at once.
 
 ---
 
