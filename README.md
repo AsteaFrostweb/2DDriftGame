@@ -9,8 +9,9 @@ Welcome to Tenacious Drift 2D, a project to continue growing skills in software 
 - Navigate to the folder/directory you cloned and select that folder to be the project folder.<br>
 - Now, assuming to have Unity(2022.3.20f1), you just open and in the editor and build/run it.
 - Once running you will be on a login screen. If the server is running you may login, if not then select **Offline Mode**.
-- If you arent using localhost you will need to use the [Developer Console](#developer-console)
-  
+- If you aren't using localhost you will need to use the [Developer Console](#developer-console) "set-ip" and "set-port" commands to update the port and IP.
+- To open the developer console, if it isn't visible in thew top left corner already, you must press the backtick key ( ` ).
+    
 ### Server
 - Go to (Drift Game Highscores)[https://github.com/AsteaFrostweb/2DDriftGameHighscores] and clone to your machine.
 - Follow instructions in above repository's readme to get the server up and running.
