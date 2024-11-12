@@ -1,15 +1,18 @@
 # Tenacious Drift 2D
 
-Welcome to Tenacious Drift 2D, a project to continue growing skills in software development; Focusing on intergration and creation of online services within a video game context.<br>
+Welcome to Tenacious Drift 2D, a project to continue growing skills in software development; Focusing on intergration and creation of cross-platform online services within a video game context.<br>
 
 ## How to Run
+### Client
+The client 
+### Server
 
----
 
 ## Why I Created This Project:
 
-Tenacious Drift 2D and 3D have been a learning experience, improving my game development skills:
+I Created Tenacious Drift 2D to learn and to improve as a developer; It's also just good fun!
 
+#### Learning Goals
 - **Game Design** Design of systems, art, map creation.
 - **UI Development**: Crafting user-friendly interfaces.
 - **Networking with ASP.NET Core**: Learning about ASP.net core 8 MVC.
