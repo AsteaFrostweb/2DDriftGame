@@ -4,9 +4,17 @@ Welcome to Tenacious Drift 2D, a project to continue growing skills in software 
 
 ## How to Run
 ### Client
-The client 
+- Clone repository onto your machine with Unity (2022.3.20f1) installed.<br>
+- Open the Unity Hub and click: "**Add**" **->** "**Project from disk**" <br>
+- Navigate to the folder/directory you cloned and select that folder to be the project folder.<br>
+- Now, assuming to have Unity(2022.3.20f1), you just open and in the editor and build/run it.
+- Once running you will be on a login screen. If the server is running you may login, if not then select **Offline Mode**.
+- If you arent using localhost you will need to use the [Developer Console](#developer-console)
+  
 ### Server
-
+- Go to (Drift Game Highscores)[https://github.com/AsteaFrostweb/2DDriftGameHighscores] and clone to your machine.
+- Follow instructions in above repository's readme to get the server up and running.
+- Once running you can: create your own account, view highscores through the webpage and access highscores funcitonality from the client.
 
 ## Why I Created This Project:
 
