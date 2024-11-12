@@ -37,7 +37,7 @@ I Created Tenacious Drift 2D to learn and to improve as a developer; It's also j
 
 ## Feature Overview:
 
-### --- Developer Console ---
+### Developer Console
 
 The developer/debugging console is enabled with the **`** key.  It allows debugging and access to a limited selection of commands.
 
@@ -47,7 +47,7 @@ The developer/debugging console is enabled with the **`** key.  It allows debugg
   - "set-port [port]"  : Sets the curerent server Port. Example: "set-port 25565"
 
 
-### --- User accounts and Highscores --- 
+### User accounts and Highscores
 
 The user accounts and high scores are handles by the external [HighscoresApplication](https://github.com/AsteaFrostweb/2DDriftGameHighscores/tree/main). <br/>
 The game then poll the server to determine whether to update the highscores for that particular person on that map. <br/>
@@ -55,7 +55,7 @@ The highscores contains different aspects like: <br/>
 Longest Combo Time, Longest Combo Distance, Best Combo Score, Fastest Lap which can each be updated individually. 
 
 
-### --- Main Menu ---
+### Main Menu 
 
 #### Map Selection
 
@@ -66,13 +66,13 @@ The map selection screen on the main menu allows you to choose: Track, Car and L
 The settings screen is very limited but would be flushed out if I where to continue the project. <br/>
 It currently only contains the ability to change the resolution of the game and to toggle fullscreen mode. <br/>
 
-### --- Cars and Drifting ---
+### Cars and Drifting
 
 The cars have different sprites and stats which affect the way they handle and preform. <br/>
 Depeinding on a cars grip, acceleration and velocity relative to direction the car is facing it can, and should, enter a drift. <br/>
 This is an integral gameplay element and is whats use to generate combos and score. <br/>
 
-### --- Tracks, Races and Checkpoints --- 
+### Tracks, Races and Checkpoints
 
 Each track is divided up into a number of checopint "Nodes". <br/>
 These nodes are a position and a radius. <br/>
