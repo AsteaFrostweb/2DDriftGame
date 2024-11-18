@@ -19,6 +19,7 @@ namespace DriftGame.Utility
         public static event EventHandler<string[]> SetPort;
         public static event EventHandler<object> ShowIp;
 
+      
         public struct CommandElement
         {
             public string[] components;
@@ -67,12 +68,17 @@ namespace DriftGame.Utility
 
         public static int maxLines { private get; set; }
         public static int currentLine { private get; set; }
-        public static TextMeshProUGUI debugTextTMP { private get; set; }
-        public static GameObject debugPanel { private get; set; }
+        public static bool isVisible { get { return debugPanel ? debugPanel.activeInHierarchy : false; } }
+        public static TextMeshProUGUI InputTextTMP { get; private set; }
+        private static TextMeshProUGUI debugTextTMP;
+        public static GameObject debugPanel { get; private set; }
 
-        public static void Initialize()
+        public static void Initialize(TextMeshProUGUI inputText, TextMeshProUGUI debugText, GameObject panel)
         {
             currentLine = maxLines;
+            InputTextTMP = inputText;
+            debugTextTMP = debugText;
+            debugPanel = panel;
         }
 
         public static void ToggleDeveloperConsole()
