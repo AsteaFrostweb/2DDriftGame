@@ -13,7 +13,7 @@ Welcome to Tenacious Drift 2D, a project to continue growing skills in software 
 - To open the developer console, if it isn't visible in thew top left corner already, you must press the backtick key ( ` ).
     
 ### Server
-- Go to (Drift Game Highscores)[https://github.com/AsteaFrostweb/2DDriftGameHighscores] and clone to your machine.
+- Go to [Drift Game Highscores](https://github.com/AsteaFrostweb/2DDriftGameHighscores) and clone to your machine.
 - Follow instructions in above repository's readme to get the server up and running.
 - Once running you can: create your own account, view highscores through the webpage and access highscores funcitonality from the client.
 
